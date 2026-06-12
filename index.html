@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Hunt Diary">
+<meta name="theme-color" content="#2d4a1e">
+<title>Hunt Diary</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+  :root {
+    --bg:#1a2e0f;--bg2:#243d16;--bg3:#2d4a1e;--bg4:#3a5c28;
+    --card:#1e3512;--card2:#243d18;
+    --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);
+    --text:#e8f0e0;--text2:#a8bf96;--text3:#6e8a5e;
+    --accent:#7ab648;--accent2:#5a8e32;
+    --danger:#c0392b;--amber:#d4890a;--info:#1a7bbf;
+    --radius:12px;--radius-sm:8px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;max-width:480px;margin:0 auto;position:relative;}
+  .header{background:var(--bg3);padding:16px 20px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+  .header-logo{display:flex;align-items:center;gap:10px;}
+  .logo-icon{width:34px;height:34px;background:var(--accent2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;}
+  .header-sub{font-size:11px;color:var(--text3);margin-top:1px;}
+  .nav{display:flex;background:var(--bg3);border-top:1px solid var(--border);position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:50;}
+  .nav-btn{flex:1;padding:10px 4px 14px;background:none;border:none;color:var(--text3);font-size:11px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;transition:color 0.15s;}
+  .nav-btn .nav-icon{font-size:22px;}
+  .nav-btn.active{color:var(--accent);}
+  .page{display:none;padding:16px 16px 90px;}
+  .page.active{display:block;}
+  .section-title{font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;}
+  .entry-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;cursor:pointer;transition:border-color 0.15s;}
+  .entry-card:active{border-color:var(--accent);}
+  .entry-card-img{width:100%;height:160px;object-fit:cover;display:block;}
+  .entry-card-img-placeholder{width:100%;height:100px;background:var(--bg3);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:32px;}
+  .entry-card-body{padding:12px 14px;}
+  .entry-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+  .entry-card-title{font-size:15px;font-weight:600;color:var(--text);}
+  .entry-badge{font-size:11px;font-weight:500;padding:3px 8px;border-radius:20px;background:var(--bg4);color:var(--accent);white-space:nowrap;margin-left:8px;}
+  .entry-card-date{font-size:12px;color:var(--text3);margin-bottom:6px;}
+  .entry-card-row{display:flex;gap:12px;flex-wrap:wrap;}
+  .entry-tag{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:4px;}
+  .fab{position:fixed;bottom:74px;right:max(20px,calc(50% - 220px));width:56px;height:56px;border-radius:50%;background:var(--accent2);border:none;color:#fff;font-size:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.4);z-index:40;transition:transform 0.1s,background 0.15s;}
+  .fab:active{transform:scale(0.92);background:var(--accent);}
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:100;align-items:flex-end;}
+  .modal-overlay.open{display:flex;}
+  .modal{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-width:480px;margin:0 auto;max-height:92vh;overflow-y:auto;padding:0 0 40px;}
+  .modal-handle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:12px auto 16px;}
+  .modal-header{display:flex;align-items:center;justify-content:space-between;padding:0 16px 12px;border-bottom:1px solid var(--border);}
+  .modal-title{font-size:16px;font-weight:600;}
+  .modal-close{background:var(--bg4);border:none;color:var(--text2);width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .modal-body{padding:16px;}
+  .form-group{margin-bottom:14px;}
+  .form-label{display:block;font-size:12px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
+  .form-input,.form-select,.form-textarea{width:100%;background:var(--card2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-size:15px;padding:10px 12px;font-family:inherit;outline:none;transition:border-color 0.15s;-webkit-appearance:none;}
+  .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--accent);}
+  .form-textarea{min-height:90px;resize:vertical;}
+  .form-select option{background:var(--bg2);}
+  .form-row{display:flex;gap:10px;}
+  .form-row .form-group{flex:1;}
+
+  /* GPS button row */
+  .gps-row{display:flex;gap:8px;align-items:stretch;}
+  .gps-row .form-input{flex:1;}
+  .gps-btn{background:var(--info);border:none;color:#fff;border-radius:var(--radius-sm);padding:0 14px;font-size:20px;cursor:pointer;white-space:nowrap;transition:opacity 0.15s;}
+  .gps-btn:active{opacity:0.75;}
+  .gps-status{font-size:11px;color:var(--text3);margin-top:4px;min-height:16px;}
+  .gps-tag{display:inline-flex;align-items:center;gap:5px;background:var(--bg4);border:1px solid var(--border2);border-radius:20px;padding:4px 10px;font-size:12px;color:var(--accent);margin-top:4px;}
+  .gps-tag a{color:var(--accent);text-decoration:none;}
+
+  .photo-area{background:var(--card2);border:1.5px dashed var(--border2);border-radius:var(--radius);padding:20px;text-align:center;cursor:pointer;transition:border-color 0.15s;}
+  .photo-area:active{border-color:var(--accent);}
+  .photo-area-icon{font-size:32px;margin-bottom:8px;color:var(--text3);}
+  .photo-area-text{font-size:13px;color:var(--text3);}
+  .photo-preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px;}
+  .photo-preview-wrap{position:relative;aspect-ratio:1;}
+  .photo-preview-img{width:100%;height:100%;object-fit:cover;border-radius:var(--radius-sm);display:block;}
+  .photo-actions{display:flex;gap:6px;margin-top:6px;}
+  .photo-dl-btn{flex:1;background:var(--bg4);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text2);font-size:12px;padding:5px 8px;cursor:pointer;text-align:center;}
+  .photo-dl-btn:active{opacity:0.7;}
+  .photo-remove{position:absolute;top:3px;right:3px;background:rgba(0,0,0,0.7);border:none;color:#fff;border-radius:50%;width:22px;height:22px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  #photo-input{display:none;}
+  .btn{width:100%;padding:13px;border:none;border-radius:var(--radius);font-size:15px;font-weight:600;cursor:pointer;transition:opacity 0.15s,transform 0.1s;font-family:inherit;}
+  .btn:active{transform:scale(0.98);opacity:.85;}
+  .btn-primary{background:var(--accent2);color:#fff;}
+  .btn-danger{background:var(--danger);color:#fff;margin-top:8px;}
+  .btn-outline{background:transparent;border:1px solid var(--border2);color:var(--text2);margin-top:8px;}
+  .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+  .stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;text-align:center;}
+  .stat-num{font-size:28px;font-weight:700;color:var(--accent);}
+  .stat-label{font-size:12px;color:var(--text3);margin-top:4px;}
+  .detail-photos{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:14px;}
+  .detail-photos img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:var(--radius-sm);}
+  .detail-photos.single img{aspect-ratio:16/9;}
+  .detail-section{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-bottom:10px;}
+  .detail-row{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;border-bottom:1px solid var(--border);font-size:14px;}
+  .detail-row:last-child{border-bottom:none;}
+  .detail-row-label{color:var(--text3);}
+  .detail-row-val{color:var(--text);font-weight:500;text-align:right;max-width:65%;}
+  .detail-row-val a{color:var(--accent);text-decoration:none;}
+  .detail-notes{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:10px;white-space:pre-wrap;}
+  .empty{text-align:center;padding:60px 20px;color:var(--text3);}
+  .empty-icon{font-size:52px;margin-bottom:16px;opacity:.5;}
+  .empty-title{font-size:16px;font-weight:600;color:var(--text2);margin-bottom:6px;}
+  .empty-sub{font-size:14px;}
+  .filter-bar{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:14px;scrollbar-width:none;}
+  .filter-bar::-webkit-scrollbar{display:none;}
+  .filter-chip{padding:6px 14px;border-radius:20px;border:1px solid var(--border2);background:var(--card);color:var(--text2);font-size:13px;cursor:pointer;white-space:nowrap;transition:all 0.15s;}
+  .filter-chip.active{background:var(--accent2);border-color:var(--accent2);color:#fff;}
+  .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px;}
+  .bar-label{width:90px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .bar-track{flex:1;height:8px;background:var(--bg4);border-radius:4px;overflow:hidden;}
+  .bar-fill{height:100%;background:var(--accent2);border-radius:4px;transition:width 0.4s;}
+  .bar-count{width:24px;text-align:right;color:var(--text3);}
+  .search-wrap{position:relative;margin-bottom:14px;}
+  .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:16px;}
+  .search-input{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:24px;color:var(--text);font-size:14px;padding:10px 12px 10px 36px;outline:none;font-family:inherit;-webkit-appearance:none;}
+  .search-input:focus{border-color:var(--accent);}
+  .photo-viewer{display:none;position:fixed;inset:0;background:#000;z-index:200;flex-direction:column;}
+  .photo-viewer.open{display:flex;}
+  .photo-viewer-toolbar{display:flex;justify-content:space-between;align-items:center;padding:16px;background:rgba(0,0,0,0.6);}
+  .photo-viewer-img-wrap{flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .photo-viewer img{max-width:100%;max-height:100%;object-fit:contain;}
+  .pv-btn{background:rgba(255,255,255,0.15);border:none;color:#fff;border-radius:8px;padding:7px 14px;font-size:14px;cursor:pointer;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-logo">
+    <div class="logo-icon">🦌</div>
+    <div>
+      <div style="font-size:18px;font-weight:600;">Hunt Diary</div>
+      <div class="header-sub" id="header-sub">Loading…</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGES -->
+<div class="page active" id="page-diary">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input class="search-input" id="search-input" type="text" placeholder="Hae merkintöjä…" oninput="renderDiary()">
+  </div>
+  <div class="filter-bar">
+    <div class="filter-chip active" onclick="setFilter('all',this)">Kaikki</div>
+    <div class="filter-chip" onclick="setFilter('Deer',this)">🦌 Deer</div>
+    <div class="filter-chip" onclick="setFilter('Moose',this)">🫎 Moose</div>
+    <div class="filter-chip" onclick="setFilter('Wild boar',this)">🐗 Boar</div>
+    <div class="filter-chip" onclick="setFilter('Pheasant',this)">🐦 Pheasant</div>
+    <div class="filter-chip" onclick="setFilter('Duck',this)">🦆 Duck</div>
+    <div class="filter-chip" onclick="setFilter('Fox',this)">🦊 Fox</div>
+    <div class="filter-chip" onclick="setFilter('Hare',this)">🐇 Hare</div>
+    <div class="filter-chip" onclick="setFilter('Other',this)">Other</div>
+  </div>
+  <div id="diary-list"></div>
+</div>
+
+<div class="page" id="page-stats">
+  <p class="section-title">Kauden yhteenveto</p>
+  <div class="stats-grid" id="stats-grid"></div>
+  <p class="section-title">Riistalajeittain</p>
+  <div class="detail-section" id="stats-by-type"></div>
+  <p class="section-title" style="margin-top:16px">Alueittain</p>
+  <div class="detail-section" id="stats-by-location"></div>
+  <p class="section-title" style="margin-top:16px">Kuukausittain</p>
+  <div class="detail-section" id="stats-by-month"></div>
+</div>
+
+<div class="page" id="page-settings">
+  <p class="section-title">Metsästäjän tiedot</p>
+  <div class="detail-section">
+    <div class="form-group">
+      <label class="form-label">Nimi</label>
+      <input class="form-input" id="pref-name" placeholder="Nimesi" oninput="savePrefs()">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Seura / alue</label>
+      <input class="form-input" id="pref-club" placeholder="esim. Turun metsästysseura" oninput="savePrefs()">
+    </div>
+    <div class="form-group" style="margin-bottom:0">
+      <label class="form-label">Oletusase</label>
+      <input class="form-input" id="pref-weapon" placeholder="esim. .308 Winchester" oninput="savePrefs()">
+    </div>
+  </div>
+  <p class="section-title" style="margin-top:16px">Tiedot</p>
+  <div class="detail-section">
+    <div class="bar-row" style="justify-content:space-between;margin-bottom:0;padding:4px 0">
+      <span style="font-size:14px;color:var(--text2)">Merkintöjä yhteensä</span>
+      <span style="font-size:14px;font-weight:600;color:var(--text)" id="settings-count">0</span>
+    </div>
+    <div class="bar-row" style="justify-content:space-between;margin-bottom:0;padding:4px 0">
+      <span style="font-size:14px;color:var(--text2)">Tallennustila</span>
+      <span style="font-size:14px;font-weight:600;color:var(--text)" id="settings-storage">—</span>
+    </div>
+  </div>
+  <button class="btn btn-outline" style="margin-top:16px" onclick="exportData()">📤 Vie tiedot (JSON)</button>
+  <button class="btn btn-danger" onclick="confirmClear()">🗑 Tyhjennä kaikki tiedot</button>
+  <div style="margin-top:20px;text-align:center;font-size:12px;color:var(--text3)">Hunt Diary v2.0 · Toimii offline · GPS + kuvien tallennus</div>
+</div>
+
+<!-- DETAIL OVERLAY -->
+<div id="detail-overlay" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:80;overflow-y:auto;padding-bottom:80px;">
+  <div class="header" style="position:sticky;top:0;z-index:90;">
+    <button onclick="closeDetail()" style="background:var(--bg4);border:none;color:var(--text2);border-radius:8px;padding:7px 12px;font-size:14px;cursor:pointer;">← Takaisin</button>
+    <div style="display:flex;gap:8px;">
+      <button onclick="editCurrentEntry()" style="background:var(--bg4);border:none;color:var(--accent);border-radius:8px;padding:7px 12px;font-size:14px;cursor:pointer;">Muokkaa</button>
+      <button onclick="deleteCurrentEntry()" style="background:var(--danger);border:none;color:#fff;border-radius:8px;padding:7px 12px;font-size:14px;cursor:pointer;">Poista</button>
+    </div>
+  </div>
+  <div id="detail-content" style="padding:16px;"></div>
+</div>
+
+<button class="fab" onclick="openNewEntry()">+</button>
+
+<div class="nav">
+  <button class="nav-btn active" id="nav-diary" onclick="showPage('diary')">
+    <span class="nav-icon">📖</span><span>Päiväkirja</span>
+  </button>
+  <button class="nav-btn" id="nav-stats" onclick="showPage('stats')">
+    <span class="nav-icon">📊</span><span>Tilastot</span>
+  </button>
+  <button class="nav-btn" id="nav-settings" onclick="showPage('settings')">
+    <span class="nav-icon">⚙️</span><span>Asetukset</span>
+  </button>
+</div>
+
+<!-- ADD/EDIT MODAL -->
+<div class="modal-overlay" id="entry-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <span class="modal-title" id="modal-title">Uusi merkintä</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Päivämäärä</label>
+          <input class="form-input" type="date" id="f-date">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Aika</label>
+          <input class="form-input" type="time" id="f-time">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Riistaeläin</label>
+        <select class="form-select" id="f-game">
+          <option value="">Valitse…</option>
+          <option>Deer</option><option>Moose</option><option>Wild boar</option>
+          <option>Pheasant</option><option>Duck</option><option>Fox</option>
+          <option>Hare</option><option>Grouse</option><option>Woodcock</option>
+          <option>Pigeon</option><option>Other</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Tulos</label>
+          <select class="form-select" id="f-result">
+            <option value="harvested">✅ Kaato</option>
+            <option value="missed">❌ Ohi</option>
+            <option value="observed">👁 Havaittu</option>
+            <option value="wounded">⚠️ Haavoittunut</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Lukumäärä</label>
+          <input class="form-input" type="number" id="f-count" min="0" value="1">
+        </div>
+      </div>
+
+      <!-- GPS SECTION -->
+      <div class="form-group">
+        <label class="form-label">📍 Sijainti (GPS)</label>
+        <div class="gps-row">
+          <input class="form-input" type="text" id="f-location" placeholder="Alue tai maasto">
+          <button class="gps-btn" onclick="getGPS()" title="Hae GPS-sijainti">🛰</button>
+        </div>
+        <div class="gps-status" id="gps-status"></div>
+        <div id="gps-coords-display"></div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Sää</label>
+          <select class="form-select" id="f-weather">
+            <option value="">—</option>
+            <option>☀️ Aurinkoinen</option><option>⛅ Pilvinen</option>
+            <option>🌧 Sateinen</option><option>❄️ Lumi</option>
+            <option>🌫 Sumuinen</option><option>💨 Tuulinen</option>
+            <option>🌨 Lumisade</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Lämpötila (°C)</label>
+          <input class="form-input" type="number" id="f-temp" placeholder="esim. -5">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Ase</label>
+          <input class="form-input" type="text" id="f-weapon" placeholder="esim. 7×57">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Koira mukana</label>
+          <select class="form-select" id="f-dog">
+            <option value="">Ei</option><option>Kyllä</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Paino (kg)</label>
+        <input class="form-input" type="number" id="f-weight" placeholder="Elopaino / ruhonpaino" step="0.1" min="0">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Muistiinpanot</label>
+        <textarea class="form-textarea" id="f-notes" placeholder="Kuvaile metsästystä, olosuhteita, muuta muistettavaa…"></textarea>
+      </div>
+
+      <!-- PHOTOS -->
+      <div class="form-group">
+        <label class="form-label">Valokuvat</label>
+        <div class="photo-area" onclick="document.getElementById('photo-input').click()">
+          <div class="photo-area-icon">📷</div>
+          <div class="photo-area-text">Lisää kuvia kamerasta tai galleriasta</div>
+        </div>
+        <input type="file" id="photo-input" accept="image/*" multiple onchange="addPhotos(this)">
+        <div class="photo-preview-grid" id="photo-preview"></div>
+      </div>
+      <button class="btn btn-primary" onclick="saveEntry()">Tallenna merkintä</button>
+      <button class="btn btn-outline" onclick="closeModal()">Peruuta</button>
+    </div>
+  </div>
+</div>
+
+<!-- Photo viewer with download -->
+<div class="photo-viewer" id="photo-viewer">
+  <div class="photo-viewer-toolbar">
+    <button class="pv-btn" onclick="pvNavigate(-1)">‹ Edellinen</button>
+    <button class="pv-btn" onclick="downloadCurrentPhoto()">⬇ Tallenna</button>
+    <button class="pv-btn" onclick="pvNavigate(1)">Seuraava ›</button>
+    <button class="pv-btn" onclick="closePhotoViewer()">✕</button>
+  </div>
+  <div class="photo-viewer-img-wrap">
+    <img id="photo-viewer-img" src="" alt="Kuva">
+  </div>
+</div>
+
+<script>
+const STORE_KEY='huntdiary_entries';
+const PREFS_KEY='huntdiary_prefs';
+let entries=[];
+let prefs={};
+let currentFilter='all';
+let editingId=null;
+let currentPhotos=[];
+let viewingEntryId=null;
+let currentGPS=null; // {lat, lng, acc}
+let pvIndex=0; // photo viewer index
+
+const GAME_EMOJI={'Deer':'🦌','Moose':'🫎','Wild boar':'🐗','Pheasant':'🐦','Duck':'🦆','Fox':'🦊','Hare':'🐇','Grouse':'🍂','Woodcock':'🪶','Pigeon':'🕊️','Other':'🎯'};
+
+function load(){
+  try{entries=JSON.parse(localStorage.getItem(STORE_KEY)||'[]');}catch(e){entries=[];}
+  try{prefs=JSON.parse(localStorage.getItem(PREFS_KEY)||'{}');}catch(e){prefs={};}
+}
+function save(){localStorage.setItem(STORE_KEY,JSON.stringify(entries));}
+function savePrefs(){
+  prefs.name=document.getElementById('pref-name').value;
+  prefs.club=document.getElementById('pref-club').value;
+  prefs.weapon=document.getElementById('pref-weapon').value;
+  localStorage.setItem(PREFS_KEY,JSON.stringify(prefs));
+}
+
+function showPage(p){
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(el=>el.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  document.getElementById('nav-'+p).classList.add('active');
+  if(p==='stats')renderStats();
+  if(p==='diary')renderDiary();
+  if(p==='settings')renderSettings();
+}
+
+function setFilter(f,el){
+  currentFilter=f;
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  renderDiary();
+}
+
+// ── GPS ────────────────────────────────────────────────────
+function getGPS(){
+  const status=document.getElementById('gps-status');
+  const display=document.getElementById('gps-coords-display');
+  if(!navigator.geolocation){status.textContent='❌ Selain ei tue GPS:ää';return;}
+  status.textContent='🛰 Haetaan sijaintia…';
+  display.innerHTML='';
+  navigator.geolocation.getCurrentPosition(
+    pos=>{
+      currentGPS={lat:pos.coords.latitude,lng:pos.coords.longitude,acc:Math.round(pos.coords.accuracy)};
+      status.textContent=`✅ Sijainti saatu (tarkkuus ±${currentGPS.acc}m)`;
+      display.innerHTML=renderGPSTag(currentGPS);
+    },
+    err=>{
+      const msgs={1:'Sijainnin käyttö estetty – salli sovellukselle sijaintilupa',2:'Sijaintia ei saatu',3:'Aikakatkaisu'};
+      status.textContent='❌ '+(msgs[err.code]||'Virhe');
+    },
+    {enableHighAccuracy:true,timeout:15000,maximumAge:0}
+  );
+}
+
+function renderGPSTag(gps){
+  if(!gps) return '';
+  const mapsUrl=`https://www.google.com/maps?q=${gps.lat},${gps.lng}`;
+  return `<div class="gps-tag">🗺 <a href="${mapsUrl}" target="_blank">${gps.lat.toFixed(5)}, ${gps.lng.toFixed(5)}</a> ±${gps.acc}m</div>`;
+}
+
+// ── Photos ─────────────────────────────────────────────────
+function addPhotos(input){
+  const files=Array.from(input.files);
+  let loaded=0;
+  files.forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=ev=>{
+      const img=new Image();
+      img.onload=()=>{
+        const canvas=document.createElement('canvas');
+        const MAX=1400;
+        let w=img.width,h=img.height;
+        if(w>MAX){h=h*MAX/w;w=MAX;}
+        if(h>MAX){w=w*MAX/h;h=MAX;}
+        canvas.width=w;canvas.height=h;
+        canvas.getContext('2d').drawImage(img,0,0,w,h);
+        currentPhotos.push(canvas.toDataURL('image/jpeg',0.75));
+        loaded++;
+        if(loaded===files.length)renderPhotoPreview();
+      };
+      img.src=ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+  input.value='';
+}
+
+function removePhoto(i){currentPhotos.splice(i,1);renderPhotoPreview();}
+
+function downloadPhoto(i,entryTitle){
+  const data=currentPhotos[i];
+  const a=document.createElement('a');
+  const safe=(entryTitle||'kuva').replace(/[^a-z0-9]/gi,'_').toLowerCase();
+  a.download=`hunt_${safe}_${i+1}.jpg`;
+  a.href=data;a.click();
+}
+
+function renderPhotoPreview(){
+  document.getElementById('photo-preview').innerHTML=currentPhotos.map((p,i)=>
+    `<div class="photo-preview-wrap">
+      <img class="photo-preview-img" src="${p}" alt="kuva" onclick="openPhotoViewerDirect(${i})">
+      <button class="photo-remove" onclick="removePhoto(${i})">✕</button>
+    </div>`
+  ).join('');
+}
+
+// ── Entry open/close ──────────────────────────────────────
+function openNewEntry(){
+  editingId=null;currentPhotos=[];currentGPS=null;
+  document.getElementById('modal-title').textContent='Uusi merkintä';
+  const now=new Date();
+  document.getElementById('f-date').value=now.toISOString().split('T')[0];
+  document.getElementById('f-time').value=now.toTimeString().slice(0,5);
+  document.getElementById('f-game').value='';
+  document.getElementById('f-result').value='harvested';
+  document.getElementById('f-count').value='1';
+  document.getElementById('f-location').value='';
+  document.getElementById('f-weather').value='';
+  document.getElementById('f-temp').value='';
+  document.getElementById('f-weapon').value=prefs.weapon||'';
+  document.getElementById('f-dog').value='';
+  document.getElementById('f-weight').value='';
+  document.getElementById('f-notes').value='';
+  document.getElementById('gps-status').textContent='';
+  document.getElementById('gps-coords-display').innerHTML='';
+  renderPhotoPreview();
+  document.getElementById('entry-modal').classList.add('open');
+}
+
+function openEditEntry(id){
+  const e=entries.find(x=>x.id===id);if(!e)return;
+  editingId=id;currentPhotos=e.photos?[...e.photos]:[];currentGPS=e.gps||null;
+  document.getElementById('modal-title').textContent='Muokkaa merkintää';
+  document.getElementById('f-date').value=e.date||'';
+  document.getElementById('f-time').value=e.time||'';
+  document.getElementById('f-game').value=e.game||'';
+  document.getElementById('f-result').value=e.result||'harvested';
+  document.getElementById('f-count').value=e.count||1;
+  document.getElementById('f-location').value=e.location||'';
+  document.getElementById('f-weather').value=e.weather||'';
+  document.getElementById('f-temp').value=e.temp||'';
+  document.getElementById('f-weapon').value=e.weapon||'';
+  document.getElementById('f-dog').value=e.dog||'';
+  document.getElementById('f-weight').value=e.weight||'';
+  document.getElementById('f-notes').value=e.notes||'';
+  document.getElementById('gps-status').textContent=currentGPS?`✅ Tallennettu sijainti (±${currentGPS.acc}m)`:'';
+  document.getElementById('gps-coords-display').innerHTML=renderGPSTag(currentGPS);
+  renderPhotoPreview();
+  document.getElementById('entry-modal').classList.add('open');
+}
+
+function closeModal(){document.getElementById('entry-modal').classList.remove('open');}
+
+function saveEntry(){
+  const game=document.getElementById('f-game').value;
+  if(!game){alert('Valitse riistaeläin');return;}
+  const entry={
+    id:editingId||('e'+Date.now()),
+    date:document.getElementById('f-date').value,
+    time:document.getElementById('f-time').value,
+    game,
+    result:document.getElementById('f-result').value,
+    count:parseFloat(document.getElementById('f-count').value)||1,
+    location:document.getElementById('f-location').value.trim(),
+    weather:document.getElementById('f-weather').value,
+    temp:document.getElementById('f-temp').value,
+    weapon:document.getElementById('f-weapon').value.trim(),
+    dog:document.getElementById('f-dog').value,
+    weight:parseFloat(document.getElementById('f-weight').value)||null,
+    notes:document.getElementById('f-notes').value.trim(),
+    photos:[...currentPhotos],
+    gps:currentGPS||null,
+  };
+  if(editingId){const idx=entries.findIndex(e=>e.id===editingId);if(idx>=0)entries[idx]=entry;}
+  else entries.unshift(entry);
+  save();closeModal();renderDiary();
+}
+
+// ── Diary ──────────────────────────────────────────────────
+function renderDiary(){
+  const q=(document.getElementById('search-input').value||'').toLowerCase();
+  let list=entries.slice().sort((a,b)=>new Date(b.date+' '+b.time)-new Date(a.date+' '+a.time));
+  if(currentFilter!=='all')list=list.filter(e=>e.game===currentFilter);
+  if(q)list=list.filter(e=>(e.game||'').toLowerCase().includes(q)||(e.location||'').toLowerCase().includes(q)||(e.notes||'').toLowerCase().includes(q));
+  const el=document.getElementById('diary-list');
+  if(!list.length){el.innerHTML=`<div class="empty"><div class="empty-icon">🌲</div><div class="empty-title">Ei merkintöjä</div><div class="empty-sub">Lisää ensimmäinen saalis painamalla +</div></div>`;return;}
+  el.innerHTML=list.map(e=>{
+    const emoji=GAME_EMOJI[e.game]||'🎯';
+    const ri={harvested:'✅',missed:'❌',observed:'👁',wounded:'⚠️'}[e.result]||'';
+    const imgHtml=e.photos&&e.photos.length
+      ?`<img class="entry-card-img" src="${e.photos[0]}" alt="kuva" onclick="event.stopPropagation();openEntryPhotoViewer('${e.id}',0)">`
+      :`<div class="entry-card-img-placeholder">${emoji}</div>`;
+    const gpsTag=e.gps?`<span class="entry-tag">🗺 GPS</span>`:'';
+    return `<div class="entry-card" onclick="openDetail('${e.id}')">
+      ${imgHtml}
+      <div class="entry-card-body">
+        <div class="entry-card-top"><div class="entry-card-title">${emoji} ${e.game||'—'}</div><div class="entry-badge">${ri} ${e.result||''}</div></div>
+        <div class="entry-card-date">📅 ${formatDate(e.date)}${e.time?' · '+e.time:''}</div>
+        <div class="entry-card-row">
+          ${e.location?`<span class="entry-tag">📍 ${e.location}</span>`:''}
+          ${e.weather?`<span class="entry-tag">${e.weather}</span>`:''}
+          ${gpsTag}
+          ${e.count>1?`<span class="entry-tag">×${e.count}</span>`:''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  const total=entries.length;
+  const harvested=entries.filter(e=>e.result==='harvested').length;
+  document.getElementById('header-sub').textContent=`${total} merkintää · ${harvested} kaatoa`;
+}
+
+function formatDate(d){
+  if(!d)return'—';
+  try{return new Date(d+'T00:00:00').toLocaleDateString('fi-FI',{day:'numeric',month:'short',year:'numeric'});}
+  catch(e){return d;}
+}
+
+// ── Detail ─────────────────────────────────────────────────
+function openDetail(id){
+  viewingEntryId=id;
+  const e=entries.find(x=>x.id===id);if(!e)return;
+  const emoji=GAME_EMOJI[e.game]||'🎯';
+  const ri={harvested:'✅ Kaato',missed:'❌ Ohi',observed:'👁 Havaittu',wounded:'⚠️ Haavoittunut'}[e.result]||'—';
+  let photosHtml='';
+  if(e.photos&&e.photos.length){
+    const cls=e.photos.length===1?'detail-photos single':'detail-photos';
+    photosHtml=`<div class="${cls}">${e.photos.map((p,i)=>`<img src="${p}" alt="kuva" onclick="openEntryPhotoViewer('${e.id}',${i})" style="cursor:pointer">`).join('')}</div>`;
+    // Download all photos button
+    photosHtml+=`<div class="photo-actions" style="margin-bottom:14px">
+      ${e.photos.map((_,i)=>`<button class="photo-dl-btn" onclick="downloadEntryPhoto('${e.id}',${i})">⬇ Kuva ${i+1}</button>`).join('')}
+    </div>`;
+  }
+  let gpsHtml='';
+  if(e.gps){
+    const mapsUrl=`https://www.google.com/maps?q=${e.gps.lat},${e.gps.lng}`;
+    gpsHtml=`<div class="detail-row"><span class="detail-row-label">GPS-sijainti</span><span class="detail-row-val"><a href="${mapsUrl}" target="_blank">🗺 Avaa kartalla</a><br><small style="color:var(--text3)">${e.gps.lat.toFixed(5)}, ${e.gps.lng.toFixed(5)}</small></span></div>`;
+  }
+  document.getElementById('detail-content').innerHTML=`
+    <div style="margin-bottom:14px">
+      <div style="font-size:22px;font-weight:700;margin-bottom:4px">${emoji} ${e.game||'Tuntematon'}</div>
+      <div style="font-size:14px;color:var(--text3)">${formatDate(e.date)}${e.time?' · '+e.time:''}</div>
+    </div>
+    ${photosHtml}
+    <div class="detail-section">
+      <div class="detail-row"><span class="detail-row-label">Tulos</span><span class="detail-row-val">${ri}</span></div>
+      ${e.count?`<div class="detail-row"><span class="detail-row-label">Lukumäärä</span><span class="detail-row-val">${e.count}</span></div>`:''}
+      ${e.location?`<div class="detail-row"><span class="detail-row-label">Alue</span><span class="detail-row-val">${e.location}</span></div>`:''}
+      ${gpsHtml}
+      ${e.weather?`<div class="detail-row"><span class="detail-row-label">Sää</span><span class="detail-row-val">${e.weather}</span></div>`:''}
+      ${e.temp?`<div class="detail-row"><span class="detail-row-label">Lämpötila</span><span class="detail-row-val">${e.temp}°C</span></div>`:''}
+      ${e.weapon?`<div class="detail-row"><span class="detail-row-label">Ase</span><span class="detail-row-val">${e.weapon}</span></div>`:''}
+      ${e.dog?`<div class="detail-row"><span class="detail-row-label">Koira</span><span class="detail-row-val">${e.dog}</span></div>`:''}
+      ${e.weight?`<div class="detail-row"><span class="detail-row-label">Paino</span><span class="detail-row-val">${e.weight} kg</span></div>`:''}
+    </div>
+    ${e.notes?`<div class="detail-notes">${e.notes}</div>`:''}
+  `;
+  const overlay=document.getElementById('detail-overlay');
+  overlay.style.display='block';overlay.scrollTop=0;
+}
+
+function closeDetail(){document.getElementById('detail-overlay').style.display='none';viewingEntryId=null;}
+function editCurrentEntry(){if(!viewingEntryId)return;closeDetail();openEditEntry(viewingEntryId);}
+function deleteCurrentEntry(){
+  if(!viewingEntryId)return;
+  if(!confirm('Poistetaanko tämä merkintä?'))return;
+  entries=entries.filter(e=>e.id!==viewingEntryId);
+  save();closeDetail();renderDiary();
+}
+
+// ── Photo viewer ───────────────────────────────────────────
+let pvEntryId=null;
+let pvPhotos=[];
+
+function openEntryPhotoViewer(entryId,idx){
+  const e=entries.find(x=>x.id===entryId);
+  if(!e||!e.photos)return;
+  pvEntryId=entryId;pvPhotos=e.photos;pvIndex=idx;
+  showPV();
+}
+
+function openPhotoViewerDirect(idx){
+  pvEntryId=null;pvPhotos=currentPhotos;pvIndex=idx;
+  showPV();
+}
+
+function showPV(){
+  document.getElementById('photo-viewer-img').src=pvPhotos[pvIndex];
+  document.getElementById('photo-viewer').classList.add('open');
+}
+
+function pvNavigate(dir){
+  pvIndex=(pvIndex+dir+pvPhotos.length)%pvPhotos.length;
+  showPV();
+}
+
+function closePhotoViewer(){document.getElementById('photo-viewer').classList.remove('open');}
+
+function downloadCurrentPhoto(){
+  const data=pvPhotos[pvIndex];
+  const a=document.createElement('a');
+  a.download=`hunt_photo_${pvIndex+1}.jpg`;
+  a.href=data;a.click();
+}
+
+function downloadEntryPhoto(entryId,idx){
+  const e=entries.find(x=>x.id===entryId);
+  if(!e||!e.photos)return;
+  const a=document.createElement('a');
+  const safe=(e.game||'hunt').replace(/[^a-z0-9]/gi,'_').toLowerCase();
+  a.download=`${safe}_${formatDate(e.date).replace(/\s/g,'_')}_${idx+1}.jpg`;
+  a.href=e.photos[idx];a.click();
+}
+
+// ── Stats ──────────────────────────────────────────────────
+function renderStats(){
+  const total=entries.length;
+  const harvested=entries.filter(e=>e.result==='harvested');
+  const totalGame=harvested.reduce((s,e)=>s+(e.count||1),0);
+  const locs=[...new Set(entries.map(e=>e.location).filter(Boolean))].length;
+  const gpsCount=entries.filter(e=>e.gps).length;
+  document.getElementById('stats-grid').innerHTML=`
+    <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">Merkintöjä</div></div>
+    <div class="stat-card"><div class="stat-num">${totalGame}</div><div class="stat-label">Kaatoja</div></div>
+    <div class="stat-card"><div class="stat-num">${locs}</div><div class="stat-label">Alueita</div></div>
+    <div class="stat-card"><div class="stat-num">${gpsCount}</div><div class="stat-label">GPS-pistettä</div></div>
+  `;
+  renderBarChart('stats-by-type',countBy(entries,'game'));
+  renderBarChart('stats-by-location',countBy(entries.filter(e=>e.location),'location'));
+  renderBarChart('stats-by-month',countByMonth(entries));
+}
+
+function countBy(arr,key){
+  const m={};arr.forEach(e=>{const v=e[key]||'—';m[v]=(m[v]||0)+1;});
+  return Object.entries(m).sort((a,b)=>b[1]-a[1]);
+}
+function countByMonth(arr){
+  const m={};arr.forEach(e=>{if(!e.date)return;const mo=e.date.slice(0,7);m[mo]=(m[mo]||0)+1;});
+  return Object.entries(m).sort((a,b)=>a[0].localeCompare(b[0]));
+}
+function renderBarChart(elId,data){
+  const max=data.length?Math.max(...data.map(d=>d[1])):1;
+  const el=document.getElementById(elId);
+  if(!data.length){el.innerHTML='<div style="font-size:13px;color:var(--text3);padding:8px 0">Ei vielä tietoja</div>';return;}
+  el.innerHTML=data.slice(0,8).map(([label,count])=>`
+    <div class="bar-row">
+      <span class="bar-label">${label}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(count/max*100)}%"></div></div>
+      <span class="bar-count">${count}</span>
+    </div>`).join('');
+}
+
+// ── Settings ───────────────────────────────────────────────
+function renderSettings(){
+  document.getElementById('pref-name').value=prefs.name||'';
+  document.getElementById('pref-club').value=prefs.club||'';
+  document.getElementById('pref-weapon').value=prefs.weapon||'';
+  document.getElementById('settings-count').textContent=entries.length;
+  const size=new Blob([localStorage.getItem(STORE_KEY)||'']).size;
+  document.getElementById('settings-storage').textContent=size>1048576?(size/1048576).toFixed(1)+' MB':Math.round(size/1024)+' KB';
+}
+
+function exportData(){
+  const blob=new Blob([JSON.stringify({entries,prefs,exported:new Date().toISOString()},null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='hunt-diary-export.json';a.click();
+  URL.revokeObjectURL(url);
+}
+
+function confirmClear(){
+  if(confirm('Poistetaanko KAIKKI merkinnät? Tätä ei voi peruuttaa.')){
+    entries=[];save();renderDiary();renderSettings();alert('Kaikki tiedot poistettu.');
+  }
+}
+
+document.getElementById('entry-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+load();renderDiary();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js');});
+}
+</script>
+</body>
+</html>
