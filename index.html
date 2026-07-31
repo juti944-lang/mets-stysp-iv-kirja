@@ -12,7 +12,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
 <style>
-:root{--bg:#1a2e0f;--bg2:#243d16;--bg3:#2d4a1e;--bg4:#3a5c28;--card:#1e3512;--card2:#243d18;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);--text:#e8f0e0;--text2:#a8bf96;--text3:#6e8a5e;--accent:#7ab648;--accent2:#5a8e32;--danger:#c0392b;--amber:#d4890a;--info:#1a7bbf;--radius:12px;--radius-sm:8px;}
+:root{--bg:#1a2e0f;--bg2:#243d16;--bg3:#2d4a1e;--bg4:#3a5c28;--card:#1e3512;--card2:#243d18;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);--text:#e8f0e0;--text2:#a8bf96;--text3:#6e8a5e;--accent:#7ab648;--accent2:#5a8e32;--danger:#c0392b;--amber:#d4890a;--info:#1a7bbf;--purple:#7b5ea7;--radius:12px;--radius-sm:8px;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;max-width:480px;margin:0 auto;}
 .header{background:var(--bg3);padding:16px 20px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
@@ -20,8 +20,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .logo-icon{width:34px;height:34px;background:var(--accent2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;}
 .header-sub{font-size:11px;color:var(--text3);margin-top:1px;}
 .nav{display:flex;background:var(--bg3);border-top:1px solid var(--border);position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:50;}
-.nav-btn{flex:1;padding:10px 4px 14px;background:none;border:none;color:var(--text3);font-size:11px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;}
-.nav-btn .nav-icon{font-size:22px;}
+.nav-btn{flex:1;padding:10px 4px 14px;background:none;border:none;color:var(--text3);font-size:10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.nav-btn .nav-icon{font-size:20px;}
 .nav-btn.active{color:var(--accent);}
 .page{display:none;padding:16px 16px 90px;}
 .page.active{display:block;}
@@ -29,17 +29,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .entry-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden;cursor:pointer;}
 .entry-card:active{border-color:var(--accent);}
 .entry-card-img{width:100%;height:160px;object-fit:cover;display:block;}
-.entry-card-img-placeholder{width:100%;height:100px;background:var(--bg3);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:32px;}
+.entry-card-img-placeholder{width:100%;height:90px;background:var(--bg3);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:28px;gap:6px;}
 .entry-card-body{padding:12px 14px;}
-.entry-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;}
+.entry-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;}
 .entry-card-title{font-size:15px;font-weight:600;color:var(--text);}
 .entry-badge{font-size:11px;font-weight:500;padding:3px 8px;border-radius:20px;background:var(--bg4);color:var(--accent);white-space:nowrap;margin-left:8px;}
-.entry-card-date{font-size:12px;color:var(--text3);margin-bottom:6px;}
-.entry-card-row{display:flex;gap:12px;flex-wrap:wrap;}
+.entry-card-date{font-size:12px;color:var(--text3);margin-bottom:5px;}
+.entry-card-row{display:flex;gap:10px;flex-wrap:wrap;}
 .entry-tag{font-size:12px;color:var(--text2);}
-.fab{position:fixed;bottom:74px;right:max(20px,calc(50% - 220px));width:56px;height:56px;border-radius:50%;background:var(--accent2);border:none;color:#fff;font-size:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.4);z-index:40;}
+.fab{position:fixed;bottom:74px;right:max(20px,calc(50% - 220px));width:56px;height:56px;border-radius:50%;background:var(--accent2);border:none;color:#fff;font-size:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.4);z-index:40;}
 .fab:active{transform:scale(.92);}
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:120;align-items:flex-end;}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:120;align-items:flex-end;}
 .modal-overlay.open{display:flex;}
 .modal{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-width:480px;margin:0 auto;max-height:92vh;overflow-y:auto;padding:0 0 40px;}
 .modal-handle{width:36px;height:4px;background:var(--border2);border-radius:2px;margin:12px auto 16px;}
@@ -51,10 +51,33 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .form-label{display:block;font-size:12px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
 .form-input,.form-select,.form-textarea{width:100%;background:var(--card2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-size:15px;padding:10px 12px;font-family:inherit;outline:none;-webkit-appearance:none;}
 .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--accent);}
-.form-textarea{min-height:90px;resize:vertical;}
+.form-textarea{min-height:80px;resize:vertical;}
 .form-select option,.form-select optgroup{background:var(--bg2);}
 .form-row{display:flex;gap:10px;}
 .form-row .form-group{flex:1;}
+
+/* Riista monivalinta */
+.game-list{display:flex;flex-direction:column;gap:8px;margin-bottom:6px;}
+.game-row{display:flex;align-items:center;gap:8px;background:var(--card2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:8px 10px;}
+.game-row-emoji{font-size:20px;width:28px;text-align:center;}
+.game-row-name{flex:1;font-size:14px;color:var(--text);}
+.game-row-count{width:70px;}
+.game-row-count input{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:14px;padding:5px 8px;text-align:center;font-family:inherit;outline:none;-webkit-appearance:none;}
+.game-row-remove{background:none;border:none;color:var(--text3);font-size:18px;cursor:pointer;padding:2px 4px;}
+.game-row-remove:active{color:var(--danger);}
+.add-game-btn{width:100%;background:var(--bg4);border:1px dashed var(--border2);border-radius:var(--radius-sm);color:var(--accent);font-size:13px;padding:9px;cursor:pointer;font-family:inherit;}
+.add-game-btn:active{opacity:.7;}
+.game-picker-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:150;align-items:flex-end;}
+.game-picker-overlay.open{display:flex;}
+.game-picker{background:var(--bg2);border-radius:20px 20px 0 0;width:100%;max-width:480px;margin:0 auto;max-height:70vh;overflow-y:auto;padding:0 0 30px;}
+.game-picker-title{font-size:15px;font-weight:600;padding:16px 16px 12px;border-bottom:1px solid var(--border);}
+.game-group-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;padding:10px 16px 4px;letter-spacing:.06em;}
+.game-option{display:flex;align-items:center;gap:12px;padding:11px 16px;cursor:pointer;border-bottom:1px solid var(--border);}
+.game-option:active{background:var(--bg4);}
+.game-option-emoji{font-size:22px;width:32px;text-align:center;}
+.game-option-name{font-size:15px;color:var(--text);}
+
+/* GPS & sää */
 .gps-row{display:flex;gap:8px;}
 .gps-row .form-input{flex:1;}
 .gps-btn{background:var(--info);border:none;color:#fff;border-radius:var(--radius-sm);padding:0 14px;font-size:20px;cursor:pointer;}
@@ -66,57 +89,90 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .status-text{font-size:11px;color:var(--text3);margin-top:4px;min-height:16px;}
 .gps-tag{display:inline-flex;align-items:center;gap:5px;background:var(--bg4);border:1px solid var(--border2);border-radius:20px;padding:4px 10px;font-size:12px;color:var(--accent);margin-top:4px;}
 .gps-tag a{color:var(--accent);text-decoration:none;}
-.photo-area{background:var(--card2);border:1.5px dashed var(--border2);border-radius:var(--radius);padding:20px;text-align:center;cursor:pointer;}
-.photo-area-icon{font-size:32px;margin-bottom:8px;color:var(--text3);}
+
+/* Koira-osio */
+.dog-section{background:var(--card);border:1px solid var(--purple);border-radius:var(--radius);padding:12px 14px;margin-bottom:14px;}
+.dog-section-title{font-size:13px;font-weight:600;color:var(--purple);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+
+/* Kuvat */
+.photo-area{background:var(--card2);border:1.5px dashed var(--border2);border-radius:var(--radius);padding:18px;text-align:center;cursor:pointer;}
+.photo-area-icon{font-size:30px;margin-bottom:6px;color:var(--text3);}
 .photo-area-text{font-size:13px;color:var(--text3);}
 .photo-preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px;}
 .photo-preview-wrap{position:relative;aspect-ratio:1;}
 .photo-preview-img{width:100%;height:100%;object-fit:cover;border-radius:var(--radius-sm);display:block;}
 .photo-remove{position:absolute;top:3px;right:3px;background:rgba(0,0,0,.7);border:none;color:#fff;border-radius:50%;width:22px;height:22px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 #photo-input{display:none;}
+
 .btn{width:100%;padding:13px;border:none;border-radius:var(--radius);font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;}
 .btn:active{opacity:.85;}
 .btn-primary{background:var(--accent2);color:#fff;}
 .btn-danger{background:var(--danger);color:#fff;margin-top:8px;}
 .btn-outline{background:transparent;border:1px solid var(--border2);color:var(--text2);margin-top:8px;}
+
+/* Stats */
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
 .stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;text-align:center;}
-.stat-num{font-size:28px;font-weight:700;color:var(--accent);}
+.stat-num{font-size:26px;font-weight:700;color:var(--accent);}
 .stat-label{font-size:12px;color:var(--text3);margin-top:4px;}
+.dog-stat-card{background:var(--card);border:1px solid var(--purple);border-radius:var(--radius);padding:14px;margin-bottom:10px;}
+.dog-stat-title{font-size:13px;font-weight:600;color:var(--purple);margin-bottom:10px;}
+.dog-stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.dog-stat-item{text-align:center;}
+.dog-stat-val{font-size:18px;font-weight:700;color:var(--text);}
+.dog-stat-lbl{font-size:11px;color:var(--text3);margin-top:2px;}
+.trend-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;}
+.trend-row:last-child{border-bottom:none;}
+.trend-lbl{color:var(--text3);width:80px;}
+.trend-bar{flex:1;height:6px;background:var(--bg4);border-radius:3px;overflow:hidden;}
+.trend-fill-speed{height:100%;background:var(--amber);border-radius:3px;}
+.trend-fill-range{height:100%;background:var(--info);border-radius:3px;}
+.trend-val{width:50px;text-align:right;color:var(--text2);}
+
+/* Detail */
 .detail-photos{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-bottom:8px;}
 .detail-photos img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:var(--radius-sm);cursor:pointer;}
 .detail-photos.single img{aspect-ratio:16/9;}
 .detail-section{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-bottom:10px;}
+.detail-section.dog-detail{border-color:var(--purple);}
 .detail-row{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;border-bottom:1px solid var(--border);font-size:14px;}
 .detail-row:last-child{border-bottom:none;}
 .detail-row-label{color:var(--text3);}
 .detail-row-val{color:var(--text);font-weight:500;text-align:right;max-width:65%;}
 .detail-row-val a{color:var(--accent);text-decoration:none;}
 .detail-notes{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:10px;white-space:pre-wrap;}
+.detail-game-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.game-pill{display:flex;align-items:center;gap:5px;background:var(--bg4);border:1px solid var(--border2);border-radius:20px;padding:5px 12px;font-size:13px;}
 .photo-actions{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
 .photo-dl-btn{flex:1;min-width:60px;background:var(--bg4);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text2);font-size:12px;padding:5px 8px;cursor:pointer;text-align:center;}
+
+/* Empty / misc */
 .empty{text-align:center;padding:60px 20px;color:var(--text3);}
 .empty-icon{font-size:52px;margin-bottom:16px;opacity:.5;}
 .empty-title{font-size:16px;font-weight:600;color:var(--text2);margin-bottom:6px;}
-.empty-sub{font-size:14px;}
 .filter-bar{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:14px;scrollbar-width:none;}
 .filter-bar::-webkit-scrollbar{display:none;}
-.filter-chip{padding:6px 14px;border-radius:20px;border:1px solid var(--border2);background:var(--card);color:var(--text2);font-size:13px;cursor:pointer;white-space:nowrap;}
+.filter-chip{padding:6px 12px;border-radius:20px;border:1px solid var(--border2);background:var(--card);color:var(--text2);font-size:13px;cursor:pointer;white-space:nowrap;}
 .filter-chip.active{background:var(--accent2);border-color:var(--accent2);color:#fff;}
 .bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px;}
 .bar-label{width:90px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .bar-track{flex:1;height:8px;background:var(--bg4);border-radius:4px;overflow:hidden;}
 .bar-fill{height:100%;background:var(--accent2);border-radius:4px;}
-.bar-count{width:24px;text-align:right;color:var(--text3);}
+.bar-count{width:30px;text-align:right;color:var(--text3);}
 .search-wrap{position:relative;margin-bottom:14px;}
-.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:16px;}
-.search-input{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:24px;color:var(--text);font-size:14px;padding:10px 12px 10px 36px;outline:none;font-family:inherit;-webkit-appearance:none;}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text3);}
+.search-input{width:100%;background:var(--card2);border:1px solid var(--border);border-radius:24px;color:var(--text);font-size:14px;padding:10px 12px 10px 34px;outline:none;font-family:inherit;-webkit-appearance:none;}
+.tab-bar{display:flex;gap:4px;margin-bottom:16px;}
+.tab-btn{flex:1;padding:8px 4px;background:var(--card);border:1px solid var(--border2);border-radius:8px;color:var(--text3);font-size:13px;cursor:pointer;font-family:inherit;text-align:center;}
+.tab-btn.active{background:var(--accent2);border-color:var(--accent2);color:#fff;}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
 .photo-viewer{display:none;position:fixed;inset:0;background:#000;z-index:200;flex-direction:column;}
 .photo-viewer.open{display:flex;}
-.pv-toolbar{display:flex;justify-content:space-between;align-items:center;padding:16px;background:rgba(0,0,0,.6);flex-wrap:wrap;gap:6px;}
+.pv-toolbar{display:flex;justify-content:space-between;padding:16px;background:rgba(0,0,0,.6);flex-wrap:wrap;gap:6px;}
 .pv-img-wrap{flex:1;display:flex;align-items:center;justify-content:center;}
 .pv-img-wrap img{max-width:100%;max-height:100%;object-fit:contain;}
-.pv-btn{background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:8px;padding:7px 14px;font-size:14px;cursor:pointer;}
+.pv-btn{background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:8px;padding:7px 12px;font-size:13px;cursor:pointer;}
 #detail-overlay{display:none;position:fixed;inset:0;background:var(--bg);z-index:80;overflow-y:auto;padding-bottom:80px;}
 </style>
 </head>
@@ -158,14 +214,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <!-- TILASTOT -->
 <div class="page" id="page-stats">
-  <p class="section-title">Kauden yhteenveto</p>
-  <div class="stats-grid" id="stats-grid"></div>
-  <p class="section-title">Riistalajeittain</p>
-  <div class="detail-section" id="stats-by-type"></div>
-  <p class="section-title" style="margin-top:16px">Alueittain</p>
-  <div class="detail-section" id="stats-by-location"></div>
-  <p class="section-title" style="margin-top:16px">Kuukausittain</p>
-  <div class="detail-section" id="stats-by-month"></div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="naytaTab('saalis',this)">🦌 Saalis</button>
+    <button class="tab-btn" onclick="naytaTab('koira',this)">🐕 Koira</button>
+  </div>
+  <div class="tab-content active" id="tab-saalis">
+    <p class="section-title">Kauden yhteenveto</p>
+    <div class="stats-grid" id="stats-grid"></div>
+    <p class="section-title">Riistalajeittain</p>
+    <div class="detail-section" id="stats-by-type"></div>
+    <p class="section-title" style="margin-top:16px">Alueittain</p>
+    <div class="detail-section" id="stats-by-location"></div>
+    <p class="section-title" style="margin-top:16px">Kuukausittain</p>
+    <div class="detail-section" id="stats-by-month"></div>
+  </div>
+  <div class="tab-content" id="tab-koira">
+    <div id="koira-stats-content"></div>
+  </div>
 </div>
 
 <!-- ASETUKSET -->
@@ -180,28 +245,32 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <label class="form-label">Seura / alue</label>
       <input class="form-input" id="pref-club" placeholder="esim. Tampereen metsästysseura" oninput="savePrefs()">
     </div>
-    <div class="form-group" style="margin-bottom:0">
+    <div class="form-group">
       <label class="form-label">Oletusase</label>
       <input class="form-input" id="pref-weapon" placeholder="esim. .308 Winchester" oninput="savePrefs()">
+    </div>
+    <div class="form-group" style="margin-bottom:0">
+      <label class="form-label">Koiran nimi (oletus)</label>
+      <input class="form-input" id="pref-dog" placeholder="esim. Ässä" oninput="savePrefs()">
     </div>
   </div>
   <p class="section-title" style="margin-top:16px">Tiedot</p>
   <div class="detail-section">
-    <div class="bar-row" style="justify-content:space-between;margin-bottom:0;padding:4px 0">
-      <span style="font-size:14px;color:var(--text2)">Merkintöjä yhteensä</span>
-      <span style="font-size:14px;font-weight:600;color:var(--text)" id="settings-count">0</span>
+    <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:14px;">
+      <span style="color:var(--text2)">Merkintöjä</span>
+      <span style="font-weight:600" id="settings-count">0</span>
     </div>
-    <div class="bar-row" style="justify-content:space-between;margin-bottom:0;padding:4px 0">
-      <span style="font-size:14px;color:var(--text2)">Tallennustila</span>
-      <span style="font-size:14px;font-weight:600;color:var(--text)" id="settings-storage">—</span>
+    <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:14px;">
+      <span style="color:var(--text2)">Tallennustila</span>
+      <span style="font-weight:600" id="settings-storage">—</span>
     </div>
   </div>
   <button class="btn btn-outline" style="margin-top:16px" onclick="exportData()">📤 Vie tiedot (JSON)</button>
   <button class="btn btn-danger" onclick="confirmClear()">🗑 Tyhjennä kaikki tiedot</button>
-  <div style="margin-top:20px;text-align:center;font-size:12px;color:var(--text3)">Hunt Diary v3.1 · GPS · Säähaku · Kuvien tallennus</div>
+  <div style="margin-top:20px;text-align:center;font-size:12px;color:var(--text3)">Hunt Diary v4.0 · GPS · Säähaku · Moniriista · Koira-analyysi</div>
 </div>
 
-<!-- MERKINNÄN DETALJINÄKYMÄ -->
+<!-- DETAIL-NÄKYMÄ -->
 <div id="detail-overlay">
   <div class="header" style="position:sticky;top:0;z-index:90;">
     <button onclick="closeDetail()" style="background:var(--bg4);border:none;color:var(--text2);border-radius:8px;padding:7px 12px;font-size:14px;cursor:pointer;">← Takaisin</button>
@@ -227,7 +296,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </button>
 </div>
 
-<!-- LISÄÄ/MUOKKAA MODAL -->
+<!-- MERKINNÄN MODAL -->
 <div class="modal-overlay" id="entry-modal">
   <div class="modal">
     <div class="modal-handle"></div>
@@ -236,6 +305,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <button class="modal-close" onclick="suljeModal()">✕</button>
     </div>
     <div class="modal-body">
+
+      <!-- Päivä & aika -->
       <div class="form-row">
         <div class="form-group">
           <label class="form-label">Päivämäärä</label>
@@ -247,64 +318,38 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         </div>
       </div>
 
+      <!-- RIISTA MONIVALINTA -->
       <div class="form-group">
-        <label class="form-label">Riistaeläin</label>
-        <select class="form-select" id="f-game">
-          <option value="">Valitse…</option>
-          <optgroup label="── Hirvieläimet ──">
-            <option value="Hirvi">Hirvi</option>
-            <option value="Peura">Peura</option>
-            <option value="Metsäkauris">Metsäkauris</option>
-          </optgroup>
-          <optgroup label="── Metsäkanalinnut ──">
-            <option value="Metso">Metso</option>
-            <option value="Teeri">Teeri</option>
-            <option value="Pyy">Pyy</option>
-            <option value="Riekko">Riekko</option>
-          </optgroup>
-          <optgroup label="── Vesilinnut ──">
-            <option value="Ankka">Ankka</option>
-            <option value="Hanhi">Hanhi</option>
-          </optgroup>
-          <optgroup label="── Muut ──">
-            <option value="Villisika">Villisika</option>
-            <option value="Fasaani">Fasaani</option>
-            <option value="Kettu">Kettu</option>
-            <option value="Jänis">Jänis</option>
-            <option value="Mäyrä">Mäyrä</option>
-            <option value="Muu">Muu</option>
-          </optgroup>
+        <label class="form-label">🦌 Riistaeläimet</label>
+        <div class="game-list" id="game-list"></div>
+        <button class="add-game-btn" onclick="avaaRiistavalikko()">+ Lisää riistaeläin</button>
+      </div>
+
+      <!-- Tulos -->
+      <div class="form-group">
+        <label class="form-label">Tulos</label>
+        <select class="form-select" id="f-result">
+          <option value="harvested">✅ Kaato</option>
+          <option value="missed">❌ Ohi</option>
+          <option value="observed">👁 Havaittu</option>
+          <option value="wounded">⚠️ Haavoittunut</option>
         </select>
       </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Tulos</label>
-          <select class="form-select" id="f-result">
-            <option value="harvested">✅ Kaato</option>
-            <option value="missed">❌ Ohi</option>
-            <option value="observed">👁 Havaittu</option>
-            <option value="wounded">⚠️ Haavoittunut</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Lukumäärä</label>
-          <input class="form-input" type="number" id="f-count" min="0" value="1">
-        </div>
-      </div>
-
+      <!-- GPS -->
       <div class="form-group">
         <label class="form-label">📍 Sijainti</label>
         <div class="gps-row">
           <input class="form-input" type="text" id="f-location" placeholder="Alue tai maasto">
-          <button class="gps-btn" onclick="haeGPS()" title="Hae GPS-sijainti">🛰</button>
+          <button class="gps-btn" onclick="haeGPS()" title="Hae GPS">🛰</button>
         </div>
         <div class="status-text" id="gps-status"></div>
         <div id="gps-coords-display"></div>
       </div>
 
+      <!-- Sää -->
       <div class="form-group">
-        <label class="form-label">🌤 Sää &nbsp;<span style="font-weight:400;text-transform:none;font-size:11px;color:var(--amber)">— ☁️ hakee automaattisesti GPS:n avulla</span></label>
+        <label class="form-label">🌤 Sää <span style="font-weight:400;text-transform:none;font-size:11px;color:var(--amber)">— ☁️ hakee automaattisesti</span></label>
         <div class="weather-row">
           <select class="form-select" id="f-weather">
             <option value="">—</option>
@@ -317,11 +362,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
             <option value="🌨 Lumisade">🌨 Lumisade</option>
             <option value="🌩 Ukkonen">🌩 Ukkonen</option>
           </select>
-          <button class="weather-btn" onclick="haeSaa()" title="Hae sää automaattisesti">☁️</button>
+          <button class="weather-btn" onclick="haeSaa()">☁️</button>
         </div>
         <div class="status-text" id="weather-status"></div>
       </div>
-
       <div class="form-row">
         <div class="form-group">
           <label class="form-label">Lämpötila (°C)</label>
@@ -333,30 +377,72 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         </div>
       </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Ase</label>
-          <input class="form-input" type="text" id="f-weapon" placeholder="esim. 7×57">
+      <!-- Ase -->
+      <div class="form-group">
+        <label class="form-label">Ase</label>
+        <input class="form-input" type="text" id="f-weapon" placeholder="esim. 7×57">
+      </div>
+
+      <!-- KOIRA-OSIO -->
+      <div class="dog-section">
+        <div class="dog-section-title">🐕 Koiran suoritustiedot</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Koiran nimi</label>
+            <input class="form-input" type="text" id="f-dog-name" placeholder="esim. Ässä">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Koira mukana</label>
+            <select class="form-select" id="f-dog">
+              <option value="">Ei</option>
+              <option value="Kyllä">Kyllä</option>
+            </select>
+          </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Koira mukana</label>
-          <select class="form-select" id="f-dog">
-            <option value="">Ei</option>
-            <option value="Kyllä">Kyllä</option>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Hakuvauhti (km/h)</label>
+            <input class="form-input" type="number" id="f-dog-speed" placeholder="esim. 8.5" step="0.1" min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Hakulaajuus (m)</label>
+            <input class="form-input" type="number" id="f-dog-range" placeholder="esim. 150" min="0">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Hakuaika (min)</label>
+            <input class="form-input" type="number" id="f-dog-time" placeholder="esim. 45" min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Haettu matka (km)</label>
+            <input class="form-input" type="number" id="f-dog-dist" placeholder="esim. 12.3" step="0.1" min="0">
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">Koiran arviointi (1–5 ⭐)</label>
+          <select class="form-select" id="f-dog-rating">
+            <option value="">—</option>
+            <option value="5">⭐⭐⭐⭐⭐ Erinomainen</option>
+            <option value="4">⭐⭐⭐⭐ Hyvä</option>
+            <option value="3">⭐⭐⭐ Tyydyttävä</option>
+            <option value="2">⭐⭐ Välttävä</option>
+            <option value="1">⭐ Heikko</option>
           </select>
         </div>
       </div>
 
+      <!-- Paino & muistiinpanot -->
       <div class="form-group">
-        <label class="form-label">Paino (kg)</label>
+        <label class="form-label">Paino (kg) — suurin yksilö</label>
         <input class="form-input" type="number" id="f-weight" placeholder="Elopaino / ruhonpaino" step="0.1" min="0">
       </div>
-
       <div class="form-group">
         <label class="form-label">Muistiinpanot</label>
-        <textarea class="form-textarea" id="f-notes" placeholder="Kuvaile metsästystä, olosuhteita, muuta muistettavaa…"></textarea>
+        <textarea class="form-textarea" id="f-notes" placeholder="Kuvaile metsästystä, koiran toimintaa, olosuhteita…"></textarea>
       </div>
 
+      <!-- Kuvat -->
       <div class="form-group">
         <label class="form-label">Valokuvat</label>
         <div class="photo-area" onclick="document.getElementById('photo-input').click()">
@@ -373,55 +459,101 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
-<!-- KUVIEN KATSELUOHJELMA -->
+<!-- RIISTAVALITSIJA -->
+<div class="game-picker-overlay" id="game-picker">
+  <div class="game-picker">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 16px 12px;border-bottom:1px solid var(--border);">
+      <span style="font-size:15px;font-weight:600;">Valitse riistaeläin</span>
+      <button onclick="suljeRiistavalikko()" style="background:var(--bg4);border:none;color:var(--text2);width:30px;height:30px;border-radius:50%;font-size:16px;cursor:pointer;">✕</button>
+    </div>
+    <div id="game-picker-list"></div>
+  </div>
+</div>
+
+<!-- KUVAKATSELU -->
 <div class="photo-viewer" id="photo-viewer">
   <div class="pv-toolbar">
     <button class="pv-btn" onclick="pvNavigoi(-1)">‹ Edell.</button>
     <button class="pv-btn" onclick="lataaNykyinenKuva()">⬇ Tallenna</button>
     <button class="pv-btn" onclick="pvNavigoi(1)">Seur. ›</button>
-    <button class="pv-btn" onclick="suljeKuvakatseluohjelma()">✕ Sulje</button>
+    <button class="pv-btn" onclick="suljeKuvakatselu()">✕</button>
   </div>
-  <div class="pv-img-wrap">
-    <img id="pv-img" src="" alt="Kuva">
-  </div>
+  <div class="pv-img-wrap"><img id="pv-img" src="" alt="Kuva"></div>
 </div>
 
 <script>
+// ── Riistalajit ───────────────────────────────────────────
+const RIISTALAJIT = [
+  { ryhma: 'Hirvieläimet', lajit: [
+    { nimi: 'Hirvi', emoji: '🫎' },
+    { nimi: 'Peura', emoji: '🦌' },
+    { nimi: 'Metsäkauris', emoji: '🦌' },
+  ]},
+  { ryhma: 'Metsäkanalinnut', lajit: [
+    { nimi: 'Metso', emoji: '🦃' },
+    { nimi: 'Teeri', emoji: '🐦' },
+    { nimi: 'Pyy', emoji: '🐦' },
+    { nimi: 'Riekko', emoji: '🐦' },
+  ]},
+  { ryhma: 'Vesilinnut', lajit: [
+    { nimi: 'Ankka', emoji: '🦆' },
+    { nimi: 'Hanhi', emoji: '🦢' },
+  ]},
+  { ryhma: 'Muut', lajit: [
+    { nimi: 'Villisika', emoji: '🐗' },
+    { nimi: 'Fasaani', emoji: '🐦' },
+    { nimi: 'Kettu', emoji: '🦊' },
+    { nimi: 'Jänis', emoji: '🐇' },
+    { nimi: 'Mäyrä', emoji: '🦡' },
+    { nimi: 'Muu', emoji: '🎯' },
+  ]},
+];
+
+function elainEmoji(nimi) {
+  for (const r of RIISTALAJIT) {
+    const l = r.lajit.find(x => x.nimi === nimi);
+    if (l) return l.emoji;
+  }
+  return '🎯';
+}
+
 // ── Tila ──────────────────────────────────────────────────
-const STORE_KEY = 'huntdiary_entries';
+const STORE_KEY = 'huntdiary_v4_entries';
 const PREFS_KEY = 'huntdiary_prefs';
 let merkinnät = [];
 let asetukset = {};
 let nykyinenSuodatin = 'all';
-let muokattavaId = null;       // null = uusi merkintä, muuten id
-let katseluId = null;          // detail-näkymässä auki oleva merkintä
-let nykyisetKuvat = [];        // base64-kuvat modalissa
-let nykyinenGPS = null;        // {lat, lng, acc}
-let pvKuvat = [];              // kuvankatselu
+let muokattavaId = null;
+let katseluId = null;
+let nykyisetKuvat = [];
+let nykyinenGPS = null;
+let nykyinenRiista = []; // [{nimi, emoji, maara}]
+let pvKuvat = [];
 let pvIndeksi = 0;
 
-const ELAIN_EMOJI = {
-  'Hirvi':'🫎','Peura':'🦌','Metsäkauris':'🦌',
-  'Metso':'🦃','Teeri':'🐦','Pyy':'🐦','Riekko':'🐦',
-  'Ankka':'🦆','Hanhi':'🦢',
-  'Villisika':'🐗','Fasaani':'🐦','Kettu':'🦊',
-  'Jänis':'🐇','Mäyrä':'🦡','Muu':'🎯'
-};
-
-// ── Lataus / tallennus ────────────────────────────────────
 function lataa() {
   try { merkinnät = JSON.parse(localStorage.getItem(STORE_KEY) || '[]'); } catch(e) { merkinnät = []; }
+  // Migraatio vanhasta formaatista
+  try {
+    const vanha = JSON.parse(localStorage.getItem('huntdiary_entries') || '[]');
+    if (vanha.length && !merkinnät.length) {
+      merkinnät = vanha.map(m => ({
+        ...m,
+        riista: m.elain ? [{ nimi: m.elain, emoji: elainEmoji(m.elain), maara: m.maara || 1 }] : [],
+      }));
+      tallenna();
+    }
+  } catch(e) {}
   try { asetukset = JSON.parse(localStorage.getItem(PREFS_KEY) || '{}'); } catch(e) { asetukset = {}; }
 }
 function tallenna() { localStorage.setItem(STORE_KEY, JSON.stringify(merkinnät)); }
-function tallennaAsetukset() {
+function savePrefs() {
   asetukset.nimi = document.getElementById('pref-name').value;
   asetukset.seura = document.getElementById('pref-club').value;
   asetukset.ase = document.getElementById('pref-weapon').value;
+  asetukset.koira = document.getElementById('pref-dog').value;
   localStorage.setItem(PREFS_KEY, JSON.stringify(asetukset));
 }
-// Alias for HTML oninput
-function savePrefs() { tallennaAsetukset(); }
 
 // ── Navigointi ────────────────────────────────────────────
 function showPage(p) {
@@ -439,110 +571,136 @@ function setFilter(f, el) {
   el.classList.add('active');
   renderDiary();
 }
+function naytaTab(id, el) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  el.classList.add('active');
+  if (id === 'koira') renderKoiraStats();
+}
+
+// ── Riistavalitsija ───────────────────────────────────────
+function avaaRiistavalikko() {
+  const lista = document.getElementById('game-picker-list');
+  lista.innerHTML = RIISTALAJIT.map(r => `
+    <div class="game-group-label">${r.ryhma}</div>
+    ${r.lajit.map(l => `
+      <div class="game-option" onclick="lisaaRiistaMerkintaan('${l.nimi}','${l.emoji}')">
+        <span class="game-option-emoji">${l.emoji}</span>
+        <span class="game-option-name">${l.nimi}</span>
+      </div>`).join('')}
+  `).join('');
+  document.getElementById('game-picker').classList.add('open');
+}
+function suljeRiistavalikko() {
+  document.getElementById('game-picker').classList.remove('open');
+}
+function lisaaRiistaMerkintaan(nimi, emoji) {
+  if (!nykyinenRiista.find(r => r.nimi === nimi)) {
+    nykyinenRiista.push({ nimi, emoji, maara: 1 });
+    renderRiista();
+  }
+  suljeRiistavalikko();
+}
+function poistaRiista(i) {
+  nykyinenRiista.splice(i, 1);
+  renderRiista();
+}
+function paivitaRiistaMaara(i, val) {
+  nykyinenRiista[i].maara = parseInt(val) || 1;
+}
+function renderRiista() {
+  document.getElementById('game-list').innerHTML = nykyinenRiista.map((r, i) => `
+    <div class="game-row">
+      <span class="game-row-emoji">${r.emoji}</span>
+      <span class="game-row-name">${r.nimi}</span>
+      <div class="game-row-count">
+        <input type="number" min="1" value="${r.maara}" onchange="paivitaRiistaMaara(${i},this.value)" placeholder="kpl">
+      </div>
+      <button class="game-row-remove" onclick="poistaRiista(${i})">✕</button>
+    </div>`).join('');
+}
 
 // ── GPS ───────────────────────────────────────────────────
 function haeGPS() {
-  const status = document.getElementById('gps-status');
-  const display = document.getElementById('gps-coords-display');
-  if (!navigator.geolocation) { status.textContent = '❌ Selain ei tue GPS:ää'; return; }
-  status.textContent = '🛰 Haetaan sijaintia…';
-  display.innerHTML = '';
+  const st = document.getElementById('gps-status');
+  const dp = document.getElementById('gps-coords-display');
+  if (!navigator.geolocation) { st.textContent = '❌ GPS ei tuettu'; return; }
+  st.textContent = '🛰 Haetaan sijaintia…'; dp.innerHTML = '';
   navigator.geolocation.getCurrentPosition(
     pos => {
       nykyinenGPS = { lat: pos.coords.latitude, lng: pos.coords.longitude, acc: Math.round(pos.coords.accuracy) };
-      status.textContent = `✅ Sijainti saatu (±${nykyinenGPS.acc}m)`;
-      display.innerHTML = gpsTagHTML(nykyinenGPS);
+      st.textContent = `✅ Sijainti saatu (±${nykyinenGPS.acc}m)`;
+      dp.innerHTML = gpsTagHTML(nykyinenGPS);
     },
     err => {
-      const viestit = { 1: 'Salli sijaintilupa selaimessa', 2: 'Sijaintia ei saatu', 3: 'Aikakatkaisu' };
-      status.textContent = '❌ ' + (viestit[err.code] || 'Virhe');
+      const v = {1:'Salli sijaintilupa',2:'Sijaintia ei saatu',3:'Aikakatkaisu'};
+      st.textContent = '❌ ' + (v[err.code] || 'Virhe');
     },
     { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
   );
 }
-
 function gpsTagHTML(gps) {
   if (!gps) return '';
   const url = `https://www.google.com/maps?q=${gps.lat},${gps.lng}`;
   return `<div class="gps-tag">🗺 <a href="${url}" target="_blank">${gps.lat.toFixed(5)}, ${gps.lng.toFixed(5)}</a> ±${gps.acc}m</div>`;
 }
 
-// ── Säähaku (Open-Meteo, ilmainen) ───────────────────────
+// ── Sää ───────────────────────────────────────────────────
 async function haeSaa() {
-  const wStatus = document.getElementById('weather-status');
+  const wSt = document.getElementById('weather-status');
   const teeHaku = async (lat, lng) => {
-    wStatus.textContent = '🌤 Haetaan säätietoja…';
+    wSt.textContent = '🌤 Haetaan säätietoja…';
     try {
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m,weathercode,windspeed_10m&wind_speed_unit=ms&timezone=auto`;
-      const r = await fetch(url);
-      if (!r.ok) throw new Error();
+      const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m,weathercode,windspeed_10m&wind_speed_unit=ms&timezone=auto`);
       const d = await r.json();
       const c = d.current;
       const temp = Math.round(c.temperature_2m);
       const tuuli = Math.round(c.windspeed_10m * 10) / 10;
-      const koodi = c.weathercode;
-      const saakoodit = [
-        [0,'☀️ Aurinkoinen'],[1,'☀️ Aurinkoinen'],[2,'⛅ Pilvinen'],[3,'⛅ Pilvinen'],
-        [45,'🌫 Sumuinen'],[48,'🌫 Sumuinen'],
-        [51,'🌧 Sateinen'],[53,'🌧 Sateinen'],[55,'🌧 Sateinen'],
-        [61,'🌧 Sateinen'],[63,'🌧 Sateinen'],[65,'🌧 Sateinen'],
-        [71,'🌨 Lumisade'],[73,'🌨 Lumisade'],[75,'🌨 Lumisade'],[77,'🌨 Lumisade'],
-        [80,'🌧 Sateinen'],[81,'🌧 Sateinen'],[82,'🌧 Sateinen'],
-        [85,'🌨 Lumisade'],[86,'🌨 Lumisade'],
-        [95,'🌩 Ukkonen'],[96,'🌩 Ukkonen'],[99,'🌩 Ukkonen'],
-      ];
-      let saakuvaus = '⛅ Pilvinen';
-      for (const [k, kuvaus] of saakoodit) { if (koodi === k) { saakuvaus = kuvaus; break; } }
-      document.getElementById('f-weather').value = saakuvaus;
+      const koodit = [[0,'☀️ Aurinkoinen'],[1,'☀️ Aurinkoinen'],[2,'⛅ Pilvinen'],[3,'⛅ Pilvinen'],[45,'🌫 Sumuinen'],[48,'🌫 Sumuinen'],[51,'🌧 Sateinen'],[53,'🌧 Sateinen'],[55,'🌧 Sateinen'],[61,'🌧 Sateinen'],[63,'🌧 Sateinen'],[65,'🌧 Sateinen'],[71,'🌨 Lumisade'],[73,'🌨 Lumisade'],[75,'🌨 Lumisade'],[77,'🌨 Lumisade'],[80,'🌧 Sateinen'],[81,'🌧 Sateinen'],[82,'🌧 Sateinen'],[85,'🌨 Lumisade'],[86,'🌨 Lumisade'],[95,'🌩 Ukkonen'],[96,'🌩 Ukkonen'],[99,'🌩 Ukkonen']];
+      let saa = '⛅ Pilvinen';
+      for (const [k, s] of koodit) { if (c.weathercode === k) { saa = s; break; } }
+      document.getElementById('f-weather').value = saa;
       document.getElementById('f-temp').value = temp;
       document.getElementById('f-wind').value = tuuli;
-      wStatus.textContent = `✅ ${saakuvaus} · ${temp}°C · tuuli ${tuuli} m/s`;
-    } catch(e) {
-      wStatus.textContent = '❌ Säätietojen haku epäonnistui';
-    }
+      wSt.textContent = `✅ ${saa} · ${temp}°C · ${tuuli} m/s`;
+    } catch(e) { wSt.textContent = '❌ Haku epäonnistui'; }
   };
-
-  if (nykyinenGPS) {
-    await teeHaku(nykyinenGPS.lat, nykyinenGPS.lng);
-  } else {
-    if (!navigator.geolocation) { wStatus.textContent = '❌ GPS ei käytettävissä'; return; }
-    wStatus.textContent = '🛰 Haetaan ensin sijaintia…';
-    navigator.geolocation.getCurrentPosition(
-      async pos => {
-        nykyinenGPS = { lat: pos.coords.latitude, lng: pos.coords.longitude, acc: Math.round(pos.coords.accuracy) };
-        document.getElementById('gps-status').textContent = `✅ Sijainti saatu (±${nykyinenGPS.acc}m)`;
-        document.getElementById('gps-coords-display').innerHTML = gpsTagHTML(nykyinenGPS);
-        await teeHaku(nykyinenGPS.lat, nykyinenGPS.lng);
-      },
-      () => { wStatus.textContent = '❌ Salli sijaintilupa säätietoja varten'; },
-      { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
-    );
-  }
+  if (nykyinenGPS) { await teeHaku(nykyinenGPS.lat, nykyinenGPS.lng); return; }
+  if (!navigator.geolocation) { wSt.textContent = '❌ GPS ei käytettävissä'; return; }
+  wSt.textContent = '🛰 Haetaan sijaintia ensin…';
+  navigator.geolocation.getCurrentPosition(
+    async pos => {
+      nykyinenGPS = { lat: pos.coords.latitude, lng: pos.coords.longitude, acc: Math.round(pos.coords.accuracy) };
+      document.getElementById('gps-status').textContent = `✅ Sijainti saatu (±${nykyinenGPS.acc}m)`;
+      document.getElementById('gps-coords-display').innerHTML = gpsTagHTML(nykyinenGPS);
+      await teeHaku(nykyinenGPS.lat, nykyinenGPS.lng);
+    },
+    () => { wSt.textContent = '❌ Salli sijaintilupa'; },
+    { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
+  );
 }
 
 // ── Kuvat ─────────────────────────────────────────────────
 function lisaaKuvat(input) {
-  const tiedostot = Array.from(input.files);
-  let ladattu = 0;
-  tiedostot.forEach(tiedosto => {
-    const lukija = new FileReader();
-    lukija.onload = ev => {
-      const kuva = new Image();
-      kuva.onload = () => {
-        const canvas = document.createElement('canvas');
+  Array.from(input.files).forEach(f => {
+    const r = new FileReader();
+    r.onload = ev => {
+      const img = new Image();
+      img.onload = () => {
+        const c = document.createElement('canvas');
         const MAX = 1400;
-        let w = kuva.width, h = kuva.height;
-        if (w > MAX) { h = h * MAX / w; w = MAX; }
-        if (h > MAX) { w = w * MAX / h; h = MAX; }
-        canvas.width = w; canvas.height = h;
-        canvas.getContext('2d').drawImage(kuva, 0, 0, w, h);
-        nykyisetKuvat.push(canvas.toDataURL('image/jpeg', 0.75));
-        ladattu++;
-        if (ladattu === tiedostot.length) renderKuvaEsikatselu();
+        let w = img.width, h = img.height;
+        if (w > MAX) { h = h*MAX/w; w = MAX; }
+        if (h > MAX) { w = w*MAX/h; h = MAX; }
+        c.width = w; c.height = h;
+        c.getContext('2d').drawImage(img, 0, 0, w, h);
+        nykyisetKuvat.push(c.toDataURL('image/jpeg', .75));
+        renderKuvaEsikatselu();
       };
-      kuva.src = ev.target.result;
+      img.src = ev.target.result;
     };
-    lukija.readAsDataURL(tiedosto);
+    r.readAsDataURL(f);
   });
   input.value = '';
 }
@@ -552,34 +710,35 @@ function renderKuvaEsikatselu() {
     `<div class="photo-preview-wrap">
       <img class="photo-preview-img" src="${p}" onclick="avaaKuvakatseluSuora(${i})">
       <button class="photo-remove" onclick="poistaKuva(${i})">✕</button>
-    </div>`
-  ).join('');
+    </div>`).join('');
 }
 
-// ── Modal: avaa / sulje ───────────────────────────────────
+// ── Modal avaa/sulje ──────────────────────────────────────
 function openNewEntry() {
-  muokattavaId = null;
-  nykyisetKuvat = [];
-  nykyinenGPS = null;
+  muokattavaId = null; nykyisetKuvat = []; nykyinenGPS = null; nykyinenRiista = [];
   document.getElementById('modal-title').textContent = 'Uusi merkintä';
   const nyt = new Date();
   document.getElementById('f-date').value = nyt.toISOString().split('T')[0];
-  document.getElementById('f-time').value = nyt.toTimeString().slice(0, 5);
-  document.getElementById('f-game').value = '';
+  document.getElementById('f-time').value = nyt.toTimeString().slice(0,5);
   document.getElementById('f-result').value = 'harvested';
-  document.getElementById('f-count').value = '1';
   document.getElementById('f-location').value = '';
   document.getElementById('f-weather').value = '';
   document.getElementById('f-temp').value = '';
   document.getElementById('f-wind').value = '';
   document.getElementById('f-weapon').value = asetukset.ase || '';
   document.getElementById('f-dog').value = '';
+  document.getElementById('f-dog-name').value = asetukset.koira || '';
+  document.getElementById('f-dog-speed').value = '';
+  document.getElementById('f-dog-range').value = '';
+  document.getElementById('f-dog-time').value = '';
+  document.getElementById('f-dog-dist').value = '';
+  document.getElementById('f-dog-rating').value = '';
   document.getElementById('f-weight').value = '';
   document.getElementById('f-notes').value = '';
   document.getElementById('gps-status').textContent = '';
   document.getElementById('gps-coords-display').innerHTML = '';
   document.getElementById('weather-status').textContent = '';
-  renderKuvaEsikatselu();
+  renderRiista(); renderKuvaEsikatselu();
   document.getElementById('entry-modal').classList.add('open');
 }
 
@@ -589,24 +748,29 @@ function avaamuokkaus(id) {
   muokattavaId = id;
   nykyisetKuvat = m.kuvat ? [...m.kuvat] : [];
   nykyinenGPS = m.gps || null;
+  nykyinenRiista = m.riista ? m.riista.map(r => ({...r})) : [];
   document.getElementById('modal-title').textContent = 'Muokkaa merkintää';
   document.getElementById('f-date').value = m.pvm || '';
   document.getElementById('f-time').value = m.aika || '';
-  document.getElementById('f-game').value = m.elain || '';
   document.getElementById('f-result').value = m.tulos || 'harvested';
-  document.getElementById('f-count').value = m.maara || 1;
   document.getElementById('f-location').value = m.alue || '';
   document.getElementById('f-weather').value = m.saa || '';
   document.getElementById('f-temp').value = m.lampotila || '';
   document.getElementById('f-wind').value = m.tuuli || '';
   document.getElementById('f-weapon').value = m.ase || '';
   document.getElementById('f-dog').value = m.koira || '';
+  document.getElementById('f-dog-name').value = m.koiraNimi || '';
+  document.getElementById('f-dog-speed').value = m.koiraVauhti || '';
+  document.getElementById('f-dog-range').value = m.koiraLaajuus || '';
+  document.getElementById('f-dog-time').value = m.koiraAika || '';
+  document.getElementById('f-dog-dist').value = m.koiraMatka || '';
+  document.getElementById('f-dog-rating').value = m.koiraArvio || '';
   document.getElementById('f-weight').value = m.paino || '';
   document.getElementById('f-notes').value = m.muistiinpanot || '';
-  document.getElementById('gps-status').textContent = nykyinenGPS ? `✅ Tallennettu sijainti (±${nykyinenGPS.acc}m)` : '';
+  document.getElementById('gps-status').textContent = nykyinenGPS ? `✅ Tallennettu (±${nykyinenGPS.acc}m)` : '';
   document.getElementById('gps-coords-display').innerHTML = gpsTagHTML(nykyinenGPS);
   document.getElementById('weather-status').textContent = '';
-  renderKuvaEsikatselu();
+  renderRiista(); renderKuvaEsikatselu();
   document.getElementById('entry-modal').classList.add('open');
 }
 
@@ -617,21 +781,25 @@ function suljeModal() {
 
 // ── Tallennus ─────────────────────────────────────────────
 function tallennaMerkinta() {
-  const elain = document.getElementById('f-game').value;
-  if (!elain) { alert('Valitse riistaeläin'); return; }
+  if (!nykyinenRiista.length) { alert('Lisää vähintään yksi riistaeläin'); return; }
   const merkinta = {
     id: muokattavaId || ('m' + Date.now()),
     pvm: document.getElementById('f-date').value,
     aika: document.getElementById('f-time').value,
-    elain,
+    riista: nykyinenRiista.map(r => ({...r})),
     tulos: document.getElementById('f-result').value,
-    maara: parseFloat(document.getElementById('f-count').value) || 1,
     alue: document.getElementById('f-location').value.trim(),
     saa: document.getElementById('f-weather').value,
     lampotila: document.getElementById('f-temp').value,
     tuuli: document.getElementById('f-wind').value,
     ase: document.getElementById('f-weapon').value.trim(),
     koira: document.getElementById('f-dog').value,
+    koiraNimi: document.getElementById('f-dog-name').value.trim(),
+    koiraVauhti: parseFloat(document.getElementById('f-dog-speed').value) || null,
+    koiraLaajuus: parseInt(document.getElementById('f-dog-range').value) || null,
+    koiraAika: parseInt(document.getElementById('f-dog-time').value) || null,
+    koiraMatka: parseFloat(document.getElementById('f-dog-dist').value) || null,
+    koiraArvio: document.getElementById('f-dog-rating').value,
     paino: parseFloat(document.getElementById('f-weight').value) || null,
     muistiinpanot: document.getElementById('f-notes').value.trim(),
     kuvat: [...nykyisetKuvat],
@@ -647,47 +815,49 @@ function tallennaMerkinta() {
   document.getElementById('entry-modal').classList.remove('open');
   muokattavaId = null;
   renderDiary();
-  // Jos detail-näkymä on auki, päivitä se
-  if (katseluId === merkinta.id) {
-    avaaDetail(merkinta.id);
-  }
+  if (katseluId === merkinta.id) avaaDetail(merkinta.id);
 }
 
 // ── Päiväkirjalista ───────────────────────────────────────
 function renderDiary() {
   const q = (document.getElementById('search-input').value || '').toLowerCase();
-  let lista = merkinnät.slice().sort((a, b) => new Date(b.pvm + ' ' + b.aika) - new Date(a.pvm + ' ' + a.aika));
-  if (nykyinenSuodatin !== 'all') lista = lista.filter(m => m.elain === nykyinenSuodatin);
+  let lista = merkinnät.slice().sort((a, b) => (b.pvm + b.aika) < (a.pvm + a.aika) ? -1 : 1);
+  if (nykyinenSuodatin !== 'all') {
+    lista = lista.filter(m => m.riista && m.riista.some(r => r.nimi === nykyinenSuodatin));
+  }
   if (q) lista = lista.filter(m =>
-    (m.elain || '').toLowerCase().includes(q) ||
+    (m.riista || []).some(r => r.nimi.toLowerCase().includes(q)) ||
     (m.alue || '').toLowerCase().includes(q) ||
-    (m.muistiinpanot || '').toLowerCase().includes(q)
+    (m.muistiinpanot || '').toLowerCase().includes(q) ||
+    (m.koiraNimi || '').toLowerCase().includes(q)
   );
   const el = document.getElementById('diary-list');
   if (!lista.length) {
-    el.innerHTML = `<div class="empty"><div class="empty-icon">🌲</div><div class="empty-title">Ei merkintöjä</div><div class="empty-sub">Lisää ensimmäinen saalis painamalla +</div></div>`;
+    el.innerHTML = `<div class="empty"><div class="empty-icon">🌲</div><div class="empty-title">Ei merkintöjä</div><div class="empty-sub">Lisää ensimmäinen saalis +</div></div>`;
     return;
   }
   el.innerHTML = lista.map(m => {
-    const emoji = ELAIN_EMOJI[m.elain] || '🎯';
-    const ri = { harvested: '✅', missed: '❌', observed: '👁', wounded: '⚠️' }[m.tulos] || '';
+    const riistaTeksti = (m.riista || []).map(r => `${r.emoji} ${r.nimi}${r.maara > 1 ? ' ×'+r.maara : ''}`).join(', ') || '—';
+    const ensiEmoji = (m.riista && m.riista[0]) ? m.riista[0].emoji : '🎯';
     const kuvaHTML = m.kuvat && m.kuvat.length
-      ? `<img class="entry-card-img" src="${m.kuvat[0]}" alt="kuva" onclick="event.stopPropagation();avaaKuvakatseluMerkinnasta('${m.id}',0)">`
-      : `<div class="entry-card-img-placeholder">${emoji}</div>`;
+      ? `<img class="entry-card-img" src="${m.kuvat[0]}" onclick="event.stopPropagation();avaaKuvakatseluMerkinnasta('${m.id}',0)">`
+      : `<div class="entry-card-img-placeholder">${(m.riista||[]).map(r=>r.emoji).join(' ') || ensiEmoji}</div>`;
+    const ri = { harvested:'✅ Kaato', missed:'❌ Ohi', observed:'👁 Havaittu', wounded:'⚠️ Haavoittunut' }[m.tulos] || '';
+    const koiraTag = m.koiraNimi ? `<span class="entry-tag">🐕 ${m.koiraNimi}</span>` : (m.koira === 'Kyllä' ? `<span class="entry-tag">🐕 Koira</span>` : '');
     return `<div class="entry-card" onclick="avaaDetail('${m.id}')">
       ${kuvaHTML}
       <div class="entry-card-body">
         <div class="entry-card-top">
-          <div class="entry-card-title">${emoji} ${m.elain || '—'}</div>
-          <div class="entry-badge">${ri} ${m.tulos || ''}</div>
+          <div class="entry-card-title" style="font-size:14px">${riistaTeksti}</div>
+          <div class="entry-badge">${ri}</div>
         </div>
-        <div class="entry-card-date">📅 ${muotoilePvm(m.pvm)}${m.aika ? ' · ' + m.aika : ''}</div>
+        <div class="entry-card-date">📅 ${muotoilePvm(m.pvm)}${m.aika ? ' · '+m.aika : ''}</div>
         <div class="entry-card-row">
           ${m.alue ? `<span class="entry-tag">📍 ${m.alue}</span>` : ''}
           ${m.saa ? `<span class="entry-tag">${m.saa}</span>` : ''}
-          ${m.lampotila ? `<span class="entry-tag">🌡 ${m.lampotila}°C</span>` : ''}
+          ${m.lampotila ? `<span class="entry-tag">🌡${m.lampotila}°C</span>` : ''}
+          ${koiraTag}
           ${m.gps ? `<span class="entry-tag">🗺 GPS</span>` : ''}
-          ${m.maara > 1 ? `<span class="entry-tag">×${m.maara}</span>` : ''}
         </div>
       </div>
     </div>`;
@@ -699,7 +869,7 @@ function renderDiary() {
 
 function muotoilePvm(d) {
   if (!d) return '—';
-  try { return new Date(d + 'T00:00:00').toLocaleDateString('fi-FI', { day: 'numeric', month: 'short', year: 'numeric' }); }
+  try { return new Date(d+'T00:00:00').toLocaleDateString('fi-FI', {day:'numeric',month:'short',year:'numeric'}); }
   catch(e) { return d; }
 }
 
@@ -708,143 +878,183 @@ function avaaDetail(id) {
   katseluId = id;
   const m = merkinnät.find(x => x.id === id);
   if (!m) return;
-  const emoji = ELAIN_EMOJI[m.elain] || '🎯';
-  const tulosteksti = { harvested: '✅ Kaato', missed: '❌ Ohi', observed: '👁 Havaittu', wounded: '⚠️ Haavoittunut' }[m.tulos] || '—';
+  const tulosteksti = { harvested:'✅ Kaato', missed:'❌ Ohi', observed:'👁 Havaittu', wounded:'⚠️ Haavoittunut' }[m.tulos] || '—';
 
+  // Riistapillerit
+  const riistaPillerit = (m.riista || []).map(r =>
+    `<div class="game-pill">${r.emoji} ${r.nimi} <strong>×${r.maara}</strong></div>`).join('');
+
+  // Kuvat
   let kuvatHTML = '';
   if (m.kuvat && m.kuvat.length) {
     const cls = m.kuvat.length === 1 ? 'detail-photos single' : 'detail-photos';
-    kuvatHTML = `<div class="${cls}">${m.kuvat.map((p, i) => `<img src="${p}" onclick="avaaKuvakatseluMerkinnasta('${m.id}',${i})">`).join('')}</div>`;
-    kuvatHTML += `<div class="photo-actions">${m.kuvat.map((_, i) => `<button class="photo-dl-btn" onclick="lataaKuva('${m.id}',${i})">⬇ Kuva ${i + 1}</button>`).join('')}</div>`;
+    kuvatHTML = `<div class="${cls}">${m.kuvat.map((p,i)=>`<img src="${p}" onclick="avaaKuvakatseluMerkinnasta('${m.id}',${i})">`).join('')}</div>`;
+    kuvatHTML += `<div class="photo-actions">${m.kuvat.map((_,i)=>`<button class="photo-dl-btn" onclick="lataaKuva('${m.id}',${i})">⬇ Kuva ${i+1}</button>`).join('')}</div>`;
   }
 
+  // GPS
   let gpsHTML = '';
   if (m.gps) {
-    const mapUrl = `https://www.google.com/maps?q=${m.gps.lat},${m.gps.lng}`;
-    gpsHTML = `<div class="detail-row"><span class="detail-row-label">GPS</span><span class="detail-row-val"><a href="${mapUrl}" target="_blank">🗺 Avaa kartalla</a><br><small style="color:var(--text3)">${m.gps.lat.toFixed(5)}, ${m.gps.lng.toFixed(5)}</small></span></div>`;
+    const url = `https://www.google.com/maps?q=${m.gps.lat},${m.gps.lng}`;
+    gpsHTML = `<div class="detail-row"><span class="detail-row-label">GPS</span><span class="detail-row-val"><a href="${url}" target="_blank">🗺 Avaa kartalla</a><br><small style="color:var(--text3)">${m.gps.lat.toFixed(5)}, ${m.gps.lng.toFixed(5)}</small></span></div>`;
+  }
+
+  // Koira-osio
+  let koiraHTML = '';
+  if (m.koira === 'Kyllä' || m.koiraNimi || m.koiraVauhti) {
+    const tahdet = m.koiraArvio ? '⭐'.repeat(parseInt(m.koiraArvio)) : '';
+    koiraHTML = `<div class="detail-section dog-detail">
+      <div style="font-size:13px;font-weight:600;color:var(--purple);margin-bottom:8px">🐕 Koiran suoritustiedot</div>
+      ${m.koiraNimi ? `<div class="detail-row"><span class="detail-row-label">Koira</span><span class="detail-row-val">${m.koiraNimi}</span></div>` : ''}
+      ${m.koiraVauhti ? `<div class="detail-row"><span class="detail-row-label">Hakuvauhti</span><span class="detail-row-val">${m.koiraVauhti} km/h</span></div>` : ''}
+      ${m.koiraLaajuus ? `<div class="detail-row"><span class="detail-row-label">Hakulaajuus</span><span class="detail-row-val">${m.koiraLaajuus} m</span></div>` : ''}
+      ${m.koiraAika ? `<div class="detail-row"><span class="detail-row-label">Hakuaika</span><span class="detail-row-val">${m.koiraAika} min</span></div>` : ''}
+      ${m.koiraMatka ? `<div class="detail-row"><span class="detail-row-label">Haettu matka</span><span class="detail-row-val">${m.koiraMatka} km</span></div>` : ''}
+      ${tahdet ? `<div class="detail-row"><span class="detail-row-label">Arviointi</span><span class="detail-row-val">${tahdet}</span></div>` : ''}
+    </div>`;
   }
 
   document.getElementById('detail-content').innerHTML = `
-    <div style="margin-bottom:14px">
-      <div style="font-size:22px;font-weight:700;margin-bottom:4px">${emoji} ${m.elain || 'Tuntematon'}</div>
-      <div style="font-size:14px;color:var(--text3)">${muotoilePvm(m.pvm)}${m.aika ? ' · ' + m.aika : ''}</div>
+    <div style="margin-bottom:12px">
+      <div style="font-size:18px;font-weight:700;margin-bottom:4px">Metsästysretki</div>
+      <div style="font-size:13px;color:var(--text3)">${muotoilePvm(m.pvm)}${m.aika?' · '+m.aika:''}</div>
     </div>
     ${kuvatHTML}
+    <div class="detail-game-pills">${riistaPillerit}</div>
     <div class="detail-section">
       <div class="detail-row"><span class="detail-row-label">Tulos</span><span class="detail-row-val">${tulosteksti}</span></div>
-      ${m.maara ? `<div class="detail-row"><span class="detail-row-label">Lukumäärä</span><span class="detail-row-val">${m.maara}</span></div>` : ''}
       ${m.alue ? `<div class="detail-row"><span class="detail-row-label">Alue</span><span class="detail-row-val">${m.alue}</span></div>` : ''}
       ${gpsHTML}
       ${m.saa ? `<div class="detail-row"><span class="detail-row-label">Sää</span><span class="detail-row-val">${m.saa}</span></div>` : ''}
       ${m.lampotila ? `<div class="detail-row"><span class="detail-row-label">Lämpötila</span><span class="detail-row-val">${m.lampotila}°C</span></div>` : ''}
       ${m.tuuli ? `<div class="detail-row"><span class="detail-row-label">Tuuli</span><span class="detail-row-val">${m.tuuli} m/s</span></div>` : ''}
       ${m.ase ? `<div class="detail-row"><span class="detail-row-label">Ase</span><span class="detail-row-val">${m.ase}</span></div>` : ''}
-      ${m.koira ? `<div class="detail-row"><span class="detail-row-label">Koira</span><span class="detail-row-val">${m.koira}</span></div>` : ''}
       ${m.paino ? `<div class="detail-row"><span class="detail-row-label">Paino</span><span class="detail-row-val">${m.paino} kg</span></div>` : ''}
     </div>
+    ${koiraHTML}
     ${m.muistiinpanot ? `<div class="detail-notes">${m.muistiinpanot}</div>` : ''}
   `;
-  const overlay = document.getElementById('detail-overlay');
-  overlay.style.display = 'block';
-  overlay.scrollTop = 0;
+  const ov = document.getElementById('detail-overlay');
+  ov.style.display = 'block'; ov.scrollTop = 0;
 }
 
 function closeDetail() {
   document.getElementById('detail-overlay').style.display = 'none';
   katseluId = null;
 }
-
 function editCurrentEntry() {
   if (!katseluId) return;
   avaamuokkaus(katseluId);
-  // Modal aukeaa detail-näkymän päälle (z-index 120 > 80)
 }
-
 function deleteCurrentEntry() {
   if (!katseluId) return;
   if (!confirm('Poistetaanko tämä merkintä?')) return;
   merkinnät = merkinnät.filter(m => m.id !== katseluId);
-  tallenna();
-  closeDetail();
-  renderDiary();
-}
-
-// ── Kuvakatselu ───────────────────────────────────────────
-function avaaKuvakatseluMerkinnasta(id, idx) {
-  const m = merkinnät.find(x => x.id === id);
-  if (!m || !m.kuvat) return;
-  pvKuvat = m.kuvat;
-  pvIndeksi = idx;
-  naytaKuva();
-}
-function avaaKuvakatseluSuora(idx) {
-  pvKuvat = nykyisetKuvat;
-  pvIndeksi = idx;
-  naytaKuva();
-}
-function naytaKuva() {
-  document.getElementById('pv-img').src = pvKuvat[pvIndeksi];
-  document.getElementById('photo-viewer').classList.add('open');
-}
-function pvNavigoi(suunta) {
-  if (!pvKuvat.length) return;
-  pvIndeksi = (pvIndeksi + suunta + pvKuvat.length) % pvKuvat.length;
-  naytaKuva();
-}
-function suljeKuvakatseluohjelma() {
-  document.getElementById('photo-viewer').classList.remove('open');
-}
-function lataaNykyinenKuva() {
-  const a = document.createElement('a');
-  a.download = `metsastys_kuva_${pvIndeksi + 1}.jpg`;
-  a.href = pvKuvat[pvIndeksi];
-  a.click();
-}
-function lataaKuva(id, idx) {
-  const m = merkinnät.find(x => x.id === id);
-  if (!m || !m.kuvat) return;
-  const turvallinen = (m.elain || 'kuva').replace(/[^a-z0-9]/gi, '_').toLowerCase();
-  const a = document.createElement('a');
-  a.download = `${turvallinen}_${(m.pvm || '').replace(/-/g, '')}_${idx + 1}.jpg`;
-  a.href = m.kuvat[idx];
-  a.click();
+  tallenna(); closeDetail(); renderDiary();
 }
 
 // ── Tilastot ──────────────────────────────────────────────
 function renderStats() {
   const yht = merkinnät.length;
-  const kaadot = merkinnät.filter(m => m.tulos === 'harvested');
-  const kaatoja = kaadot.reduce((s, m) => s + (m.maara || 1), 0);
+  const kaatoja = merkinnät.filter(m => m.tulos === 'harvested').reduce((s, m) => s + (m.riista||[]).reduce((a,r)=>a+r.maara,0), 0);
   const alueet = [...new Set(merkinnät.map(m => m.alue).filter(Boolean))].length;
   const gpsPisteet = merkinnät.filter(m => m.gps).length;
   document.getElementById('stats-grid').innerHTML = `
     <div class="stat-card"><div class="stat-num">${yht}</div><div class="stat-label">Merkintöjä</div></div>
-    <div class="stat-card"><div class="stat-num">${kaatoja}</div><div class="stat-label">Kaatoja</div></div>
+    <div class="stat-card"><div class="stat-num">${kaatoja}</div><div class="stat-label">Kaatoja yht.</div></div>
     <div class="stat-card"><div class="stat-num">${alueet}</div><div class="stat-label">Alueita</div></div>
     <div class="stat-card"><div class="stat-num">${gpsPisteet}</div><div class="stat-label">GPS-pistettä</div></div>
   `;
-  renderPylvaskaavio('stats-by-type', laskeRyhmittain(merkinnät, 'elain'));
-  renderPylvaskaavio('stats-by-location', laskeRyhmittain(merkinnät.filter(m => m.alue), 'alue'));
+  // Laske riistalajeittain
+  const lajiLaskuri = {};
+  merkinnät.forEach(m => (m.riista||[]).forEach(r => { lajiLaskuri[r.nimi] = (lajiLaskuri[r.nimi]||0) + r.maara; }));
+  const lajiData = Object.entries(lajiLaskuri).sort((a,b)=>b[1]-a[1]);
+  renderPylvaskaavio('stats-by-type', lajiData);
+  renderPylvaskaavio('stats-by-location', laskeRyhmittain(merkinnät.filter(m=>m.alue), 'alue'));
   renderPylvaskaavio('stats-by-month', laskeKuukausittain(merkinnät));
 }
+
+function renderKoiraStats() {
+  const el = document.getElementById('koira-stats-content');
+  const koiraMerkinnät = merkinnät.filter(m => m.koiraVauhti || m.koiraLaajuus || m.koiraNimi);
+  if (!koiraMerkinnät.length) {
+    el.innerHTML = `<div class="empty"><div class="empty-icon">🐕</div><div class="empty-title">Ei koiratietoja</div><div class="empty-sub">Lisää koiran suoritustiedot metsästysmerkintöihin</div></div>`;
+    return;
+  }
+
+  // Ryhmittele koiran nimellä
+  const koirat = {};
+  koiraMerkinnät.forEach(m => {
+    const nimi = m.koiraNimi || 'Tuntematon';
+    if (!koirat[nimi]) koirat[nimi] = [];
+    koirat[nimi].push(m);
+  });
+
+  let html = '';
+  for (const [nimi, retket] of Object.entries(koirat)) {
+    const vauhtiData = retket.filter(m=>m.koiraVauhti).map(m=>m.koiraVauhti);
+    const laajuusData = retket.filter(m=>m.koiraLaajuus).map(m=>m.koiraLaajuus);
+    const aikaData = retket.filter(m=>m.koiraAika).map(m=>m.koiraAika);
+    const matkaData = retket.filter(m=>m.koiraMatka).map(m=>m.koiraMatka);
+    const arvioData = retket.filter(m=>m.koiraArvio).map(m=>parseInt(m.koiraArvio));
+
+    const ka = arr => arr.length ? (arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(1) : '—';
+    const max = arr => arr.length ? Math.max(...arr).toFixed(1) : '—';
+    const kaArvio = arvioData.length ? (arvioData.reduce((a,b)=>a+b,0)/arvioData.length).toFixed(1) : null;
+
+    // Trendi: viimeiset 5 retkeä
+    const viimeiset = retket.slice(-5);
+    const maxVauhti = vauhtiData.length ? Math.max(...vauhtiData) : 1;
+    const maxLaajuus = laajuusData.length ? Math.max(...laajuusData) : 1;
+
+    html += `<div class="dog-stat-card">
+      <div class="dog-stat-title">🐕 ${nimi} — ${retket.length} retkeä</div>
+      <div class="dog-stat-grid" style="margin-bottom:14px">
+        <div class="dog-stat-item"><div class="dog-stat-val">${ka(vauhtiData)}</div><div class="dog-stat-lbl">ka vauhti km/h</div></div>
+        <div class="dog-stat-item"><div class="dog-stat-val">${ka(laajuusData)}</div><div class="dog-stat-lbl">ka laajuus m</div></div>
+        <div class="dog-stat-item"><div class="dog-stat-val">${ka(aikaData)}</div><div class="dog-stat-lbl">ka aika min</div></div>
+        <div class="dog-stat-item"><div class="dog-stat-val">${max(vauhtiData)}</div><div class="dog-stat-lbl">max vauhti</div></div>
+        <div class="dog-stat-item"><div class="dog-stat-val">${max(laajuusData)}</div><div class="dog-stat-lbl">max laajuus</div></div>
+        <div class="dog-stat-item"><div class="dog-stat-val">${matkaData.length ? ka(matkaData)+' km' : '—'}</div><div class="dog-stat-lbl">ka matka</div></div>
+      </div>
+      ${kaArvio ? `<div style="text-align:center;font-size:13px;color:var(--text2);margin-bottom:12px">Keskiarvosana: <strong style="color:var(--amber)">${kaArvio} / 5 ⭐</strong></div>` : ''}
+      ${viimeiset.filter(m=>m.koiraVauhti||m.koiraLaajuus).length > 0 ? `
+        <div style="font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Viimeiset retket</div>
+        ${viimeiset.map(m => `
+          <div class="trend-row">
+            <span class="trend-lbl">${muotoilePvm(m.pvm).split(' ').slice(0,2).join(' ')}</span>
+            ${m.koiraVauhti ? `<div class="trend-bar"><div class="trend-fill-speed" style="width:${Math.round(m.koiraVauhti/maxVauhti*100)}%"></div></div>
+            <span class="trend-val" style="color:var(--amber)">${m.koiraVauhti} km/h</span>` : '<div class="trend-bar"></div><span class="trend-val">—</span>'}
+          </div>
+          ${m.koiraLaajuus ? `<div class="trend-row">
+            <span class="trend-lbl" style="color:var(--info)">↔ laajuus</span>
+            <div class="trend-bar"><div class="trend-fill-range" style="width:${Math.round(m.koiraLaajuus/maxLaajuus*100)}%"></div></div>
+            <span class="trend-val" style="color:var(--info)">${m.koiraLaajuus} m</span>
+          </div>` : ''}`).join('')}
+      ` : ''}
+    </div>`;
+  }
+  el.innerHTML = html;
+}
+
 function laskeRyhmittain(arr, avain) {
   const m = {};
-  arr.forEach(e => { const v = e[avain] || '—'; m[v] = (m[v] || 0) + 1; });
-  return Object.entries(m).sort((a, b) => b[1] - a[1]);
+  arr.forEach(e => { const v = e[avain]||'—'; m[v]=(m[v]||0)+1; });
+  return Object.entries(m).sort((a,b)=>b[1]-a[1]);
 }
 function laskeKuukausittain(arr) {
   const m = {};
-  arr.forEach(e => { if (!e.pvm) return; const kk = e.pvm.slice(0, 7); m[kk] = (m[kk] || 0) + 1; });
-  return Object.entries(m).sort((a, b) => a[0].localeCompare(b[0]));
+  arr.forEach(e => { if(!e.pvm)return; const kk=e.pvm.slice(0,7); m[kk]=(m[kk]||0)+1; });
+  return Object.entries(m).sort((a,b)=>a[0].localeCompare(b[0]));
 }
 function renderPylvaskaavio(elId, data) {
-  const max = data.length ? Math.max(...data.map(d => d[1])) : 1;
+  const max = data.length ? Math.max(...data.map(d=>d[1])) : 1;
   const el = document.getElementById(elId);
   if (!data.length) { el.innerHTML = '<div style="font-size:13px;color:var(--text3);padding:8px 0">Ei vielä tietoja</div>'; return; }
-  el.innerHTML = data.slice(0, 8).map(([label, count]) => `
+  el.innerHTML = data.slice(0,10).map(([label,count]) => `
     <div class="bar-row">
       <span class="bar-label">${label}</span>
-      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(count / max * 100)}%"></div></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(count/max*100)}%"></div></div>
       <span class="bar-count">${count}</span>
     </div>`).join('');
 }
@@ -854,38 +1064,62 @@ function renderSettings() {
   document.getElementById('pref-name').value = asetukset.nimi || '';
   document.getElementById('pref-club').value = asetukset.seura || '';
   document.getElementById('pref-weapon').value = asetukset.ase || '';
+  document.getElementById('pref-dog').value = asetukset.koira || '';
   document.getElementById('settings-count').textContent = merkinnät.length;
-  const koko = new Blob([localStorage.getItem(STORE_KEY) || '']).size;
-  document.getElementById('settings-storage').textContent = koko > 1048576 ? (koko / 1048576).toFixed(1) + ' MB' : Math.round(koko / 1024) + ' KB';
+  const koko = new Blob([localStorage.getItem(STORE_KEY)||'']).size;
+  document.getElementById('settings-storage').textContent = koko > 1048576 ? (koko/1048576).toFixed(1)+' MB' : Math.round(koko/1024)+' KB';
 }
 function exportData() {
-  const blob = new Blob([JSON.stringify({ merkinnät, asetukset, viety: new Date().toISOString() }, null, 2)], { type: 'application/json' });
+  const blob = new Blob([JSON.stringify({merkinnät,asetukset,viety:new Date().toISOString()},null,2)],{type:'application/json'});
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = 'hunt-diary-export.json'; a.click();
+  const a = document.createElement('a'); a.href=url; a.download='hunt-diary-export.json'; a.click();
   URL.revokeObjectURL(url);
 }
 function confirmClear() {
-  if (confirm('Poistetaanko KAIKKI merkinnät? Tätä ei voi peruuttaa.')) {
-    merkinnät = [];
-    tallenna();
-    renderDiary();
-    renderSettings();
+  if (confirm('Poistetaanko KAIKKI merkinnät?')) {
+    merkinnät=[]; tallenna(); renderDiary(); renderSettings();
     alert('Kaikki tiedot poistettu.');
   }
 }
 
-// Sulje modal klikkaamalla taustaa
-document.getElementById('entry-modal').addEventListener('click', function(e) {
-  if (e.target === this) suljeModal();
-});
+// ── Kuvakatselu ───────────────────────────────────────────
+function avaaKuvakatseluMerkinnasta(id, idx) {
+  const m = merkinnät.find(x=>x.id===id);
+  if (!m||!m.kuvat) return;
+  pvKuvat=m.kuvat; pvIndeksi=idx; naytaKuva();
+}
+function avaaKuvakatseluSuora(idx) {
+  pvKuvat=nykyisetKuvat; pvIndeksi=idx; naytaKuva();
+}
+function naytaKuva() {
+  document.getElementById('pv-img').src=pvKuvat[pvIndeksi];
+  document.getElementById('photo-viewer').classList.add('open');
+}
+function pvNavigoi(d) {
+  if (!pvKuvat.length) return;
+  pvIndeksi=(pvIndeksi+d+pvKuvat.length)%pvKuvat.length; naytaKuva();
+}
+function suljeKuvakatselu() { document.getElementById('photo-viewer').classList.remove('open'); }
+function lataaNykyinenKuva() {
+  const a=document.createElement('a'); a.download=`metsastys_${pvIndeksi+1}.jpg`; a.href=pvKuvat[pvIndeksi]; a.click();
+}
+function lataaKuva(id,idx) {
+  const m=merkinnät.find(x=>x.id===id); if(!m||!m.kuvat)return;
+  const a=document.createElement('a');
+  a.download=`${(m.pvm||'').replace(/-/g,'')}_${idx+1}.jpg`;
+  a.href=m.kuvat[idx]; a.click();
+}
+
+// ── Init ──────────────────────────────────────────────────
+document.getElementById('entry-modal').addEventListener('click', function(e){ if(e.target===this)suljeModal(); });
+document.getElementById('game-picker').addEventListener('click', function(e){ if(e.target===this)suljeRiistavalikko(); });
 
 lataa();
 renderDiary();
 </script>
 <script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js'); });
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js');});
 }
 </script>
 </body>
